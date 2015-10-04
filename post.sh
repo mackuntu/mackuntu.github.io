@@ -16,4 +16,11 @@ do
 string=${string}-$arg
 done
 echo "creating draft.. $string"
-cp _templates/empty.markdown _drafts/$string.markdown
+cat << TEMP  > _drafts/$string.markdown
+---
+layout: post
+title: $string
+category: posts
+---
+TEMP
+#cp _templates/empty.markdown _drafts/$string.markdown
