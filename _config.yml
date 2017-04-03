@@ -1,9 +1,4 @@
-markdown: rdiscount
-highlighter: pygment
 permalink: /posts/:title
-rdiscount:
-  extensions: [smart]
-
 name: Martin Qian
 url: http://mackuntu.com
 description: Blog on everything
