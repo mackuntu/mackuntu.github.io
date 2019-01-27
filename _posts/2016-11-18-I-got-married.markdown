@@ -4,7 +4,7 @@ title: I got married
 category: posts
 ---
 Today I married Laurie.
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto.php%3Ffbid%3D1382291568514622%26set%3Da.1382334448510334%26type%3D3&width=500" width="500" height="338" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto.php%3Ffbid%3D1382291678514611%26set%3Da.1382334448510334%26type%3D3&width=500" width="500" height="338" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 
-Everything was perfect.
-
-<a data-flickr-embed="true"  href="https://www.flickr.com/photos/55938658@N05/34004475013/in/dateposted-public/" title="Laurie and Martin Got Married"><img src="https://farm5.staticflickr.com/4195/34004475013_7717b98330_b.jpg" width="1024" height="576" alt="Laurie and Martin Got Married"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pVbn20i0I1Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
