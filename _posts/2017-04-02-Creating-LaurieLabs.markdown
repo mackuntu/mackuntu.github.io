@@ -11,4 +11,4 @@ But maids are expensive, easily $100 per trip, and I needed one almost everyday.
 
 How do I get a maid, that will be able to clean around the clock, and yet not having to spend ~$3000/mo?
 
-Of course, automation was the answer, but how? Computer vision / ML / Robotics were not really robust enough to the point where any comercial products were even ready to take on this ultimate AI dream. Or is it?
+Of course, automation was the answer, but how? Computer vision / ML / Robotics were not really robust enough to the point where any commercial products were even ready to take on this ultimate AI dream. Or is it?
