@@ -18,4 +18,4 @@ After a quick search on the web on this subject, I find that not only is my situ
 
 Another relevant term to help frame this challenge facing seniors is called Activities of Daily Living, or ADLs. This is defined as "The tasks of everyday life. Basic ADLs include eating, dressing, getting into or out of a bed or chair, taking a bath or shower, and using the toilet. Instrumental activities of daily living (IADL) are activities related to independent living and include preparing meals, managing money, shopping, doing housework, and using a telephone." [source](https://www.cancer.gov/publications/dictionaries/cancer-terms/def/adl)
 
-With this in mind, I now have a mission for the next decade: to create a robust system, to allow for dignity independence for seniors. 
+With this in mind, I now have a mission for the next decade: to create a robust system enabling dignity independence for seniors. 
