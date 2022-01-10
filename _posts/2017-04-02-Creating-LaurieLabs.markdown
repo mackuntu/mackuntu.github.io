@@ -2,12 +2,6 @@
 layout: post
 title: Laurie Labs, genesis
 category: startup
-carousels:
-  - images: 
-    - image: /images/laurielabs/image1.png
-    - image: /images/laurielabs/image2.png
-    - image: /images/laurielabs/image3.png
-    - image: /images/laurielabs/image4.png
 ---
 
 My wife and I grew up during the only-child era of China, which means no
@@ -51,7 +45,7 @@ supplies Dignity Independence to seniors. Building it is both an urgent
 challenge for my own family, and a looming challenge for society at
 large.
 
-{% include carousel.html height="80" unit="%" duration="7" number="1" %}
+{% include image-gallery.html folder="/images/laurielabs" %}
 
 To think about senior living, I chose to focus on Activities of Daily
 Living, or ADLs. This is defined as "The tasks of everyday life. Basic
