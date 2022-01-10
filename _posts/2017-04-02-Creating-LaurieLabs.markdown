@@ -5,9 +5,8 @@ category: startup
 ---
 
 My wife and I grew up during the only-child era of China, which means no
-siblings, and when it comes time for us to take care of our parents, the
-two of us will be supporting four parents, our own kids, and our own
-finances.
+siblings, in 10 years, the two of us will be supporting four parents, our 
+kids, and ourselves.
 
 My family is blue-collar, both my parents are hairdressers and earned
 their living humbly. They do ok for themselves, and raised me with the
