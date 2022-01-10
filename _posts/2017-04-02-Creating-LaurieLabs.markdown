@@ -45,7 +45,7 @@ supplies Dignity Independence to seniors. Building it is both an urgent
 challenge for my own family, and a looming challenge for society at
 large.
 
-{% include image-gallery.html folder="/images/laurielabs" %}
+<img src="/images/laurielabs/population.gif" alt="population projections"/>
 
 To think about senior living, I chose to focus on Activities of Daily
 Living, or ADLs. This is defined as "The tasks of everyday life. Basic
