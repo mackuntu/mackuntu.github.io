@@ -1,7 +1,9 @@
 ---
+title: '"Why do you want to be a people manager?"'
+date: 2019-01-10 00:00:00 Z
+categories:
+- management
 layout: post
-title: "\"Why do you want to be a people manager?\""
-category: management
 ---
 
 Not a trick question. And yet, I get the wrong answer all the time. 

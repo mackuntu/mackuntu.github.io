@@ -1,7 +1,9 @@
 ---
-layout: post
 title: Laurie Labs, genesis
-category: startup
+date: 2017-04-02 00:00:00 Z
+categories:
+- startup
+layout: post
 ---
 
 My wife and I grew up during the only-child era of China, which means no

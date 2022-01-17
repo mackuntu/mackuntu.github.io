@@ -1,6 +1,6 @@
 ---
+title: '["TBD"]'
 layout: post
-title: [TBD]
 category: posts
 ---
 
