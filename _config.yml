@@ -10,9 +10,9 @@ collections:
     output: true
 permalink: "/posts/:title"
 name: Martin Qian
-url: http://mackuntu.com
+url: https://mackuntu.com
 description: Blog on everything
 twitter: martin_qian
 github: mackuntu
-gravatar_url: http://www.gravatar.com/avatar/a04824a3dfa209764fd7a64fdcae4896.png
+gravatar_url: https://www.gravatar.com/avatar/a04824a3dfa209764fd7a64fdcae4896.png
 theme: jekyll-theme-minimal
