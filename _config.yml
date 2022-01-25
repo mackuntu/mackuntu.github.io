@@ -1,5 +1,5 @@
 ---
-title: Mackuntu.Github.Io
+title: Martin's shower thoughts
 timezone: UTC
 collections:
   posts:
@@ -11,7 +11,7 @@ collections:
 permalink: "/posts/:title"
 name: Martin Qian
 url: https://mackuntu.com
-description: Blog on everything
+description: Profound lessons, life events, misc topics. 
 twitter: martin_qian
 github: mackuntu
 gravatar_url: https://www.gravatar.com/avatar/a04824a3dfa209764fd7a64fdcae4896.png
