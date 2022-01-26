@@ -82,4 +82,3 @@ can aid seniors to achieve dignity independence.
 [^1]: [source](https://www.cancer.gov/publications/dictionaries/cancer-terms/def/adl)
 
 [^2]: [source](https://health.usnews.com/best-nursing-homes/articles/how-to-pay-for-nursing-home-costs#:~:text=The%20national%20annual%20median%20cost,month%2C%20or%20%2493%2C075%20per%20year.)
-<a data-flickr-embed="true" href="https://www.flickr.com/photos/55938658@N05/11079749565/in/dateposted-public/" title="3G9C0561.jpg"><img src="https://live.staticflickr.com/3753/11079749565_f30bd2aa5c_k.jpg" width="2048" height="992" alt="3G9C0561.jpg"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
