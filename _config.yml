@@ -1,20 +1,62 @@
----
-title: Martin's shower thoughts
-timezone: UTC
-collections:
-  posts:
-    title: Posts
-    output: true
-  uploads:
-    title: Uploads
-    output: true
-permalink: "/posts/:title"
-name: Martin Qian
-url: https://mackuntu.com
-description: Profound lessons, life events, misc topics.
-twitter: martin_qian
-github: mackuntu
-gravatar_url: https://www.gravatar.com/avatar/a04824a3dfa209764fd7a64fdcae4896.png
-remote_theme: pages-themes/minimal@v0.2.0
+# Site
+name: Martin Notes
+title: Martin Notes
+description: a blog of Martin Qian.
+logo: 'assets/images/logo.png'
+favicon: 'favicon.ico'
+baseurl: 
+google_analytics: 'G-MK0NRFNRDN'
+disqus: 'mackuntu'
+include: ["_pages"]
+permalink: /:title/
+
+# Authors
+authors:
+  martin:
+    name: Martin
+    display_name: Martin
+    gravatar: a04824a3dfa209764fd7a64fdcae4896
+    email: mackuntu@gmail.com
+    web: https://www.mackuntu.com
+    twitter: https://twitter.com/martin_qian
+    description: I'm a tech leader, passionate about building great products to address people's needs. I write occasional blogs about pivotal moments in my career. I try to collate profound lessons accumulated by making a lot of mistakes. Also, some life events.
+
+# Plugins
 plugins:
-- jekyll-remote-theme
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-archives
+    
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    category: '/category/:name/'
+    
+# Pagination 
+paginate: 6
+paginate_path: /page:num/
+    
+# Other
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+# Adsense (change to "enabled" to activate, also your client id and ad slot. Create a new ad unit from your Adsense account to get the slot.)
+adsense: "disabled"
+adsense-data-ad-client: "ca-pub-3412143450191416"
+adsense-data-ad-slot: "1363087678"
+
+# Lazy Images ("enabled" or "disabled")
+lazyimages: "disabled"
+
+exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock]

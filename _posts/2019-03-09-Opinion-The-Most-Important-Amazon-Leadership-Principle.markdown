@@ -1,9 +1,15 @@
 ---
+layout: post
 title: 'Opinion: The Most Important Amazon Leadership Principle'
 date: 2019-03-09 00:00:00 Z
-categories:
-- posts
-layout: post
+author: martin
+categories: [ opinion ]
+tags: [green]
+featured: false
+hidden: false
+rating: 4.5
+comments: true
+image: https://live.staticflickr.com/2835/10286380464_5f45eb0324_k.jpg
 ---
 
 ### and 3 lessons on self-betterment

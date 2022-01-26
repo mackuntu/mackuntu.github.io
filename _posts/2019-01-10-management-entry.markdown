@@ -1,9 +1,15 @@
 ---
-title: '"Why do you want to be a people manager?"'
-date: 2019-01-10 00:00:00 Z
-categories:
-- management
 layout: post
+title: 'Why do you want to be a people manager'
+date: 2019-01-10 00:00:00 Z
+categories: [ management ]
+author: martin
+tags: [green]
+featured: false
+hidden: false
+rating: 4.5
+comments: true
+image: https://live.staticflickr.com/3824/10286650203_b7369893ef_k.jpg
 ---
 
 Not a trick question. And yet, I get the wrong answer all the time. 

@@ -1,9 +1,15 @@
 ---
-title: Laurie Labs, genesis
-date: 2017-04-02 00:00:00 Z
-categories:
-- startup
 layout: post
+title: Laurie Labs, genesis
+description: "Next start up idea"
+author: martin
+categories: [ startup, notes ]
+tags: [green]
+image: https://live.staticflickr.com/3753/11079749565_f30bd2aa5c_k.jpg
+featured: true
+hidden: true
+rating: 4.5
+comments: true
 ---
 
 My wife and I grew up during the only-child era of China, which means no
@@ -46,7 +52,7 @@ supplies Dignity Independence to seniors. Building it is both an urgent
 challenge for my own family, and a looming challenge for society at
 large.
 
-<img src="/images/laurielabs/population.gif" alt="population projections"/>
+<img src="/assets/images/laurielabs/population.gif" alt="population projections"/>
 
 To think about senior living, I chose to focus on Activities of Daily
 Living, or ADLs. This is defined as "The tasks of everyday life. Basic
@@ -72,3 +78,4 @@ can aid seniors to achieve dignity independence.
 [^1]: [source](https://www.cancer.gov/publications/dictionaries/cancer-terms/def/adl)
 
 [^2]: [source](https://health.usnews.com/best-nursing-homes/articles/how-to-pay-for-nursing-home-costs#:~:text=The%20national%20annual%20median%20cost,month%2C%20or%20%2493%2C075%20per%20year.)
+<a data-flickr-embed="true" href="https://www.flickr.com/photos/55938658@N05/11079749565/in/dateposted-public/" title="3G9C0561.jpg"><img src="https://live.staticflickr.com/3753/11079749565_f30bd2aa5c_k.jpg" width="2048" height="992" alt="3G9C0561.jpg"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
