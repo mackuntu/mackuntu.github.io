@@ -28,8 +28,8 @@ authors:
     twitter: https://twitter.com/martin_qian
     description: I'm a tech leader, passionate about building great products to address
       people's needs. I write occasional blogs about pivotal moments in my career.
-      I try to collate profound lessons learned through making a lot of mistakes. Also, 
-      sometimes I write about my life events. 
+      I try to collate profound lessons learned through making a lot of mistakes.
+      Also, sometimes I write about my life events.
 plugins:
 - jekyll-paginate
 - jekyll-sitemap
