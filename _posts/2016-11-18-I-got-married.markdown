@@ -1,9 +1,6 @@
 ---
 title: I got married
-date: 2016-11-18 00:00:00 Z
-categories:
-- startup
-- notes
+categories: [ life ]
 tags:
 - green
 layout: post
