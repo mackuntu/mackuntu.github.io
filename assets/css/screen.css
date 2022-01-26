@@ -11,6 +11,19 @@ License: https://www.wowthemes.net/freebies-license/
     padding: 1rem 0rem;
 }
 
+.mainlogo h1.sitetitle {
+    font-family: Righteous;
+    float: left;
+}
+
+.mainlogo p.subtitle {
+    padding-left: 0.5rem;
+    height: 21px;
+    width: 78px;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
 a {
     color: #00ab6b;
     transition: all 0.2s;
@@ -302,10 +315,6 @@ span.post-read-more a:hover {
 .mediumnavigation .navbar-brand img {
     max-height: 30px;
     margin-right: 5px;
-}
-
-.mainheading h1.sitetitle {
-    font-family: Righteous;
 }
 
 .mainheading h1.posttitle {

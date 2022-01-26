@@ -1,5 +1,5 @@
 ---
-title: Martin Notes
+title: MartinNotes
 timezone: UTC
 collections:
   posts:
@@ -8,7 +8,7 @@ collections:
   uploads:
     title: Uploads
     output: true
-name: Martin Notes
+name: MartinNotes
 description: a blog of Martin Qian.
 logo: assets/images/logo.png
 favicon: favicon.ico
