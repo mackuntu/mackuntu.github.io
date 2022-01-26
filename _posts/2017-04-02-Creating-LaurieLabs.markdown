@@ -1,10 +1,14 @@
 ---
-layout: post
 title: Laurie Labs, genesis
-description: "Next start up idea"
+date: 2017-04-02 00:00:00 Z
+categories:
+- startup
+- notes
+tags:
+- green
+layout: post
+description: Next start up idea
 author: martin
-categories: [ startup, notes ]
-tags: [green]
 image: https://live.staticflickr.com/3753/11079749565_f30bd2aa5c_k.jpg
 featured: true
 hidden: true

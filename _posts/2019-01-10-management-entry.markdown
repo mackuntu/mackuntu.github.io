@@ -1,10 +1,12 @@
 ---
-layout: post
-title: 'Why do you want to be a people manager'
+title: Why do you want to be a people manager
 date: 2019-01-10 00:00:00 Z
-categories: [ management ]
+categories:
+- management
+tags:
+- green
+layout: post
 author: martin
-tags: [green]
 featured: false
 hidden: false
 rating: 4.5

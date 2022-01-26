@@ -1,16 +1,23 @@
-# Site
-name: Martin Notes
+---
 title: Martin Notes
+timezone: UTC
+collections:
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
+name: Martin Notes
 description: a blog of Martin Qian.
-logo: 'assets/images/logo.png'
-favicon: 'favicon.ico'
+logo: assets/images/logo.png
+favicon: favicon.ico
 baseurl: 
-google_analytics: 'G-MK0NRFNRDN'
-disqus: 'mackuntu'
-include: ["_pages"]
-permalink: /:title/
-
-# Authors
+google_analytics: G-MK0NRFNRDN
+disqus: mackuntu
+include:
+- _pages
+permalink: "/:title/"
 authors:
   martin:
     name: Martin
@@ -19,44 +26,38 @@ authors:
     email: mackuntu@gmail.com
     web: https://www.mackuntu.com
     twitter: https://twitter.com/martin_qian
-    description: I'm a tech leader, passionate about building great products to address people's needs. I write occasional blogs about pivotal moments in my career. I try to collate profound lessons accumulated by making a lot of mistakes. Also, some life events.
-
-# Plugins
+    description: I'm a tech leader, passionate about building great products to address
+      people's needs. I write occasional blogs about pivotal moments in my career.
+      I try to collate profound lessons accumulated by making a lot of mistakes. Also,
+      some life events.
 plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-archives
-    
-# Archives
+- jekyll-paginate
+- jekyll-sitemap
+- jekyll-feed
+- jekyll-seo-tag
+- jekyll-archives
 jekyll-archives:
   enabled:
-    - categories
+  - categories
   layout: archive
   permalinks:
-    category: '/category/:name/'
-    
-# Pagination 
+    category: "/category/:name/"
 paginate: 6
-paginate_path: /page:num/
-    
-# Other
+paginate_path: "/page:num/"
 markdown: kramdown
-
 kramdown:
   input: GFM
   syntax_highlighter: rouge
   syntax_highlighter_opts:
     block:
       line_numbers: true
-
-# Adsense (change to "enabled" to activate, also your client id and ad slot. Create a new ad unit from your Adsense account to get the slot.)
-adsense: "disabled"
-adsense-data-ad-client: "ca-pub-3412143450191416"
-adsense-data-ad-slot: "1363087678"
-
-# Lazy Images ("enabled" or "disabled")
-lazyimages: "disabled"
-
-exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock]
+adsense: disabled
+adsense-data-ad-client: ca-pub-3412143450191416
+adsense-data-ad-slot: '1363087678'
+lazyimages: disabled
+exclude:
+- changelog.md
+- LICENSE.txt
+- README.md
+- Gemfile
+- Gemfile.lock
