@@ -20,7 +20,15 @@ cat << TEMP  > _drafts/$string.markdown
 ---
 layout: post
 title: $string
-category: posts
+categories: []
+tags: [green]
+description: 
+author: martin
+image: 
+featured: true
+hidden: false
+rating: 4.5
+comments: true
 ---
 TEMP
 #cp _templates/empty.markdown _drafts/$string.markdown

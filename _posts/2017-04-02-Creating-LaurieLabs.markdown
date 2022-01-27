@@ -1,11 +1,7 @@
 ---
 title: Laurie Labs, genesis
-date: 2017-04-02 00:00:00 Z
-categories:
-- startup
-- notes
-tags:
-- green
+categories: [startup]
+tags: [green]
 layout: post
 description: Next start up idea
 author: martin
