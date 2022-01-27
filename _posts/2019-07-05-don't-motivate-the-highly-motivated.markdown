@@ -1,8 +1,11 @@
 ---
-layout: post
 title: Don't motivate the highly motivated
-categories: [management]
-tags: [green]
+date: 2019-07-05 00:00:00 Z
+categories:
+- management
+tags:
+- green
+layout: post
 description: 
 author: martin
 image: https://miro.medium.com/max/700/1*2oPP1mqKJyt0FQVYY8EGNA.jpeg
