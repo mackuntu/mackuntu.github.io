@@ -173,15 +173,24 @@ post_class: post-template
 https://search.google.com/structured-data/testing-tool/u/0/
 ================================================== -->
 {% if page.rating %}
-    <script type="application/ld+json">
-
-[36mLine: 1[0m
-[31m[36 mLine : 1 [[0m
-[31m        0 m [[0m
-[31m            31 m {[0m
-[31m                [[0m
-[31m                    0 m [[0m
-[31m                        31 m "@context" : "http://schema.org/",[0m
-[31m                        [[0m
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "Thing",
+    "name": "{{ page.title }}"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "{{ author.display_name }}"
+  },
+  "datePublished": "{{ page.date | date:"%Y-%m-%d" }}",
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "{{ page.rating }}",
+    "bestRating": "5"
+  }
+}
 </script>
 {% endif %}
