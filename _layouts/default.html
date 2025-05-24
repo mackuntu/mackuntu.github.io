@@ -18,6 +18,52 @@
 
 <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
 
+<style>
+/* Clean, Gates Notes-inspired styling */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.navbar {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+}
+
+.sitetitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #555 !important;
+    margin: 0 0.5rem;
+}
+
+.nav-link:hover {
+    color: #2c3e50 !important;
+}
+
+.main-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+</style>
+
 </head>
 
 {% if jekyll.environment == 'production' %}
@@ -42,39 +88,25 @@
 
 <!-- Begin Menu Navigation
 ================================================== -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{{ site.baseurl }}/">
+            <h1 class="sitetitle">{{ site.name }}</h1>
+        </a>
 
-    <div class="container pr-0">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <!-- Begin Logo -->
-    <a class="navbar-brand" href="{{ site.baseurl }}/">
-        <div class="mainlogo">
-            <h1 class="sitetitle">{{ site.name }}</h1> 
-            <!--
-            <p class="subtitle">
-                {{ site.description }}
-            </p>
-            -->
-        </div>
-    </a>
-    <!-- End Logo -->
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarMediumish">
-
-        <!-- Begin Menu -->
-
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-
                 {% if page.url == "/" %}
                 <li class="nav-item active">
                 {% else %}
                 <li class="nav-item">
                 {% endif %}
-                <a class="nav-link" href="{{ site.baseurl }}/index.html">Blog</a>
+                <a class="nav-link" href="{{ site.baseurl }}/">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -86,17 +118,10 @@
                 </li>
 
                 <li class="nav-item">
-                <a target="_blank" class="nav-link" href="https://github.com/mackuntu/"><i class="fab fa-github"></i> GitHub</a>
+                <a class="nav-link" href="https://github.com/mackuntu/" target="_blank">GitHub</a>
                 </li>
-
-                {% include search-lunr.html %}
-
             </ul>
-
-        <!-- End Menu -->
-
-    </div>
-
+        </div>
     </div>
 </nav>
 <!-- End Navigation
@@ -113,64 +138,46 @@
 </div>
 
 {% if site.mailchimp-list %}
-<!-- Bottom Alert Bar
+<!-- Newsletter Signup
 ================================================== -->
-<div class="alertbar">
-	<div class="container text-center">
-		<span><img src="{{ site.baseurl }}/{{ site.logo }}" alt="{{site.title}}"> &nbsp; Never miss a <b>story</b> from us, subscribe to our newsletter</span>
-        <form action="{{site.mailchimp-list}}" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
-            <div class="mc-field-group">
-            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
-            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 bg-light">
+                <div class="card-body text-center">
+                    <h5>Subscribe to updates</h5>
+                    <p class="text-muted">Get notified about new posts</p>
+                    <form action="{{site.mailchimp-list}}" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                        <div class="input-group">
+                            <input type="email" placeholder="Your email" name="EMAIL" class="form-control" id="mce-EMAIL" autocomplete="on" required>
+                            <div class="input-group-append">
+                                <input type="submit" value="Subscribe" name="subscribe" class="btn btn-primary">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-	</div>
+        </div>
+    </div>
 </div>
 {% endif %}
     
 </div>
 
-<!-- Categories Jumbotron
-================================================== -->
-<div class="jumbotron fortags">
-	<div class="d-md-flex h-100">
-		<div class="col-md-4 transpdark align-self-center text-center h-100">
-            <div class="d-md-flex align-items-center justify-content-center h-100">
-                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
-            </div>
-		</div>
-		<div class="col-md-8 p-5 align-self-center text-center">
-            {% assign categories_list = site.categories %}
-            {% if categories_list.first[0] == null %}
-                {% for category in categories_list %}
-                    <a class="mt-1 mb-1" href="{{site.baseurl}}/categories#{{ category | url_escape | strip | replace: ' ', '-' }}">{{ category | camelcase }} ({{ site.categories[category].size }})</a>
-                {% endfor %}
-            {% else %}
-                {% for category in categories_list %}
-                    <a class="mt-1 mb-1" href="{{site.baseurl}}/categories#{{ category[0] | url_escape | strip | replace: ' ', '-' }}">{{ category[0] | camelcase }} ({{ category[1].size }})</a>
-                {% endfor %}
-            {% endif %}
-            {% assign categories_list = nil %}
-		</div>
-	</div>
-</div>
-
-<!-- Begin Footer
+<!-- Footer
 ================================================== -->
 <footer class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-6 text-center text-lg-left">
-                Copyright © {{ site.time | date: "%Y" }} {{ site.name }} 
+            <div class="col-md-6 text-center text-md-left">
+                <p>&copy; {{ site.time | date: "%Y" }} {{ site.name }}. All rights reserved.</p>
             </div>
-            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
-                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            <div class="col-md-6 text-center text-md-right">    
+                <p><a href="https://www.wowthemes.net/mediumish-free-jekyll-template/" target="_blank" class="text-muted">Mediumish Theme</a></p>
             </div>
         </div>
     </div>
 </footer>
-<!-- End Footer
-================================================== -->
 
 </div> <!-- /.site-content -->
 

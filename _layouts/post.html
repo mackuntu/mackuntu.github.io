@@ -5,152 +5,222 @@ archive: false
 post_class: post-template
 ---
 
-<!-- Begin Article
-================================================== -->
-<div class="container">
-    <div class="row">
+<style>
+/* Post-specific styling for better typography */
+.post-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
 
-        <!-- Post Share -->
-        <div class="col-md-2 pl-0">
-            {% include share.html %}
-        </div>
+.post-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
 
-        <!-- Post -->
-        {% assign author = site.authors[page.author] %}
+.article-post {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+}
 
-        <div class="col-md-9 flex-first flex-md-unordered">
-            <div class="mainheading">
+.article-post h1 {
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
 
-                <!-- Author Box -->
-                {% if page.author %}
-                    <div class="row post-top-meta">
-                        <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
-                            {% if author.avatar %}
-                                <img class="author-thumb" src="{{site.baseurl}}/{{ author.avatar }}" alt="{{ author.display_name }}">
-                            {% else %}
-                                <img class="author-thumb" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
-                            {% endif %}
-                        </div>
-                        <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
-                            <a target="_blank" class="link-dark" href="{{ author.web }}">{{ author.display_name }}</a>
-                            <a target="_blank" href="{{ author.twitter }}" class="btn follow">Follow</a>
-                            <span class="author-description">{{ author.description }}</span>
-                        </div>
-                    </div>
-                {% endif %}
+.article-post h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+}
 
-                <!-- Post Title -->
-                <h1 class="posttitle">{{ page.title }}</h1>
+.article-post h3 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+}
 
-            </div>
+.featured-image {
+    margin: 2rem 0;
+    border-radius: 8px;
+}
 
-            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
-            {% if site.adsense == "enabled" %}
-                {% include adsense-under-header.html %}
-            {% endif %}
-            <!-- End Adsense -->
-            
-            <!-- Post Featured Image -->
-            {% if page.image %}
-                {% if site.lazyimages == "enabled" %}
-                    <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
-                {% else %}
-                    <img class="featured-image img-fluid" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
-                {% endif %}
-            {% endif %}
-            <!-- End Featured Image -->
-            
-            <!-- Post Content -->
-            <div class="article-post">
-                <!-- Table of Contents -->
-                {% if page.toc %}
-                    {% if page.beforetoc %}
-                        <p><em>{{page.beforetoc}}</em></p>
-                    {% endif %}
-                    <div class="toc mt-4 mb-4 lead">
-                        <h3 class="font-weight-bold">Summary</h3>
-                        {% include toc.html html=content %}
-                    </div>
-                {% endif %}
-                <!-- End Table of Contents -->
-                
-                <!-- Main Content -->
-                {{content}}
-            </div>
+.author-box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    border-left: 4px solid #007bff;
+}
 
-            <!-- Post Date -->
-            <p>
-                <small>
-                    <span class="post-date">
-                        <time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
-                    </span>
-                    {% if page.last_modified_at %}
-                        (Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>)
-                    {% endif %}
-                </small>
-            </p>
+.author-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
 
-            <!-- Post Categories -->
-            {% if page.categories %}
-                <div class="after-post-cats">
-                    <ul class="tags mb-4">
-                        {% assign sortedCategories = page.categories | sort %}
-                        {% for category in sortedCategories %}
-                            <li>
-                                <a class="smoothscroll" href="{{site.baseurl}}/categories#{{ category | replace: " ","-" }}">{{ category }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+.tags a {
+    font-size: 0.85rem;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 0.25rem 0.5rem;
+    border-radius: 15px;
+    text-decoration: none;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
 
-            <!-- Post Tags -->
-            {% if page.tags %}
-                <div class="after-post-tags">
-                    <ul class="tags">
-                        {% assign sortedTags = page.tags | sort %}
-                        {% for tag in sortedTags %}
-                            <li>
-                                <a class="smoothscroll" href="{{site.baseurl}}/tags#{{ tag | replace: " ","-" }}">#{{ tag }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+.tags a:hover {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+}
 
-            <!-- Post Navigation -->
-            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
-                {% if page.previous.url %}
-                    <a class="prev d-block col-md-6" href="{{site.baseurl}}{{page.previous.url}}">
-                        &laquo; {{page.previous.title}}
-                    </a>
-                {% endif %}
-                {% if page.next.url %}
-                    <a class="next d-block col-md-6 text-lg-right" href="{{site.baseurl}}{{page.next.url}}">
-                        {{page.next.title}} &raquo;
-                    </a>
-                {% endif %}
-                <div class="clearfix"></div>
-            </div>
+.post-navigation {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+</style>
 
-        </div>
-        <!-- End Post -->
-
+<!-- Begin Article -->
+<article class="post">
+    
+    <!-- Post Title -->
+    <h1 class="post-title">{{ page.title }}</h1>
+    
+    <!-- Post Meta -->
+    <div class="post-meta">
+        <span class="post-date">
+            <time datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
+        </span>
+        {% if page.last_modified_at %}
+            • Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>
+        {% endif %}
+        {% if page.categories %}
+            • 
+            {% assign sortedCategories = page.categories | sort %}
+            {% for category in sortedCategories %}
+                <a href="{{site.baseurl}}/categories#{{ category | replace: " ","-" }}">{{ category }}</a>{% unless forloop.last %}, {% endunless %}
+            {% endfor %}
+        {% endif %}
     </div>
-</div>
-<!-- End Article
-================================================== -->
 
-<!-- Begin Comments
-================================================== -->
+    <!-- Adsense if enabled -->
+    {% if site.adsense == "enabled" %}
+        {% include adsense-under-header.html %}
+    {% endif %}
+    
+    <!-- Post Featured Image -->
+    {% if page.image %}
+        {% if site.lazyimages == "enabled" %}
+            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
+        {% else %}
+            <img class="featured-image img-fluid" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
+        {% endif %}
+    {% endif %}
+    
+    <!-- Post Content -->
+    <div class="article-post">
+        <!-- Table of Contents -->
+        {% if page.toc %}
+            {% if page.beforetoc %}
+                <p><em>{{page.beforetoc}}</em></p>
+            {% endif %}
+            <div class="toc mt-4 mb-4 lead">
+                <h3 class="font-weight-bold">Summary</h3>
+                {% include toc.html html=content %}
+            </div>
+        {% endif %}
+        
+        <!-- Main Content -->
+        {{content}}
+    </div>
+
+    <!-- Post Tags -->
+    {% if page.tags %}
+        <div class="after-post-tags my-4">
+            <strong>Tags: </strong>
+            <div class="tags">
+                {% assign sortedTags = page.tags | sort %}
+                {% for tag in sortedTags %}
+                    <a href="{{site.baseurl}}/tags#{{ tag | replace: " ","-" }}">#{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Author Box (moved to bottom) -->
+    {% assign author = site.authors[page.author] %}
+    {% if page.author %}
+        <div class="author-box">
+            <div class="row">
+                <div class="col-auto">
+                    {% if author.avatar %}
+                        <img class="author-thumb" src="{{site.baseurl}}/{{ author.avatar }}" alt="{{ author.display_name }}">
+                    {% else %}
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=120&d=mm&r=x" alt="{{ author.display_name }}">
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <h5 class="mb-1">{{ author.display_name }}</h5>
+                    <p class="mb-2 text-muted">{{ author.description }}</p>
+                    <div>
+                        {% if author.web %}
+                            <a href="{{ author.web }}" target="_blank" class="btn btn-sm btn-outline-primary mr-2">Website</a>
+                        {% endif %}
+                        {% if author.twitter %}
+                            <a href="{{ author.twitter }}" target="_blank" class="btn btn-sm btn-outline-primary">Twitter</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Post Navigation -->
+    <div class="post-navigation">
+        <div class="row">
+            {% if page.previous.url %}
+                <div class="col-md-6 mb-3">
+                    <small class="text-muted">Previous post</small>
+                    <div>
+                        <a href="{{site.baseurl}}{{page.previous.url}}" class="text-decoration-none">
+                            <strong>{{page.previous.title}}</strong>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            {% if page.next.url %}
+                <div class="col-md-6 mb-3 {% unless page.previous.url %}offset-md-6{% endunless %} text-md-right">
+                    <small class="text-muted">Next post</small>
+                    <div>
+                        <a href="{{site.baseurl}}{{page.next.url}}" class="text-decoration-none">
+                            <strong>{{page.next.title}}</strong>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</article>
+<!-- End Article -->
+
+<!-- Begin Comments -->
 {% if page.comments != false %}
-    <div class="container">
-        <div class="row justify-content-center mb-5" id="comments">
+    <div class="mt-5 pt-4" style="border-top: 1px solid #e9ecef;">
+        <div class="row justify-content-center">
             <div class="col-md-8">
                 {% include disqus.html %}
             </div>
         </div>
     </div>
 {% endif %}
-<!-- End Comments
-================================================== -->
+<!-- End Comments -->
