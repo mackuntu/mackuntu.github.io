@@ -12,9 +12,9 @@ layout: default
 <div class="row listrecent">
 
 {% for post in page.posts %}
-
-    {% include postbox.html %}
-
+    {% unless post.hidden == true %}
+        {% include postbox.html %}
+    {% endunless %}
 {% endfor %}
 
 </div>

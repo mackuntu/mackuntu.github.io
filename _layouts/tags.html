@@ -11,7 +11,7 @@ layout: default
 </div>
 {% assign pages_list = tag[1] %}
 {% for post in pages_list %}
-{% if post.title != null %}
+{% if post.title != null and post.hidden != true %}
 {% if group == null or group == post.group %}
 {% include postbox.html %}
 {% endif %}

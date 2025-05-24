@@ -9,8 +9,10 @@ layout: post
     </url>
 
     {% for post in site.posts %}
+    {% unless post.hidden == true %}
     <url>
         <loc>{{ site.url }}{{ post.url }}</loc>
     </url>
+    {% endunless %}
     {% endfor %}
 </urlset>

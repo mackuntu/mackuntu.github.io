@@ -138,6 +138,7 @@ h1, h2, h3, h4, h5, h6,
     overflow: hidden;
     transition: box-shadow 0.3s ease, transform 0.2s ease;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
 .featured-post:hover {
@@ -212,6 +213,17 @@ h1, h2, h3, h4, h5, h6,
     color: var(--primary-blue) !important;
 }
 
+/* Stretched link to make entire featured card clickable */
+.featured-post-title a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
 .featured-post-excerpt {
     color: var(--text-secondary);
     font-size: 1rem;
@@ -249,6 +261,7 @@ h1, h2, h3, h4, h5, h6,
     height: 100%;
     transition: box-shadow 0.3s ease, transform 0.2s ease;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    position: relative;
 }
 
 .post-card:hover {
@@ -312,6 +325,17 @@ h1, h2, h3, h4, h5, h6,
 
 .post-card-title a:hover {
     color: var(--primary-blue) !important;
+}
+
+/* Stretched link to make entire card clickable */
+.post-card-title a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
 }
 
 .post-card-excerpt {
