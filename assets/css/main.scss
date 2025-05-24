@@ -5,7 +5,721 @@
 @use "syntax";
 @use "starsnonscss";
 
+/* =============================================================================
+   GATES NOTES STYLE VARIABLES & OVERRIDES
+   ============================================================================= */
+
+:root {
+    --primary-blue: #0078d4;
+    --secondary-blue: #106ebe;
+    --text-primary: #323130;
+    --text-secondary: #605e5c;
+    --text-light: #8a8886;
+    --border-light: #edebe9;
+    --background-light: #faf9f8;
+    --white: #ffffff;
+}
+
+/* =============================================================================
+   GENERAL LAYOUT STYLES - Clean, Gates Notes-inspired styling
+   ============================================================================= */
+
+body {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--white);
+    font-size: 16px;
+}
+
+/* Override theme link colors */
+a {
+    color: var(--primary-blue) !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--secondary-blue) !important;
+    text-decoration: none !important;
+}
+
+/* =============================================================================
+   NAVIGATION STYLES - Clean Gates Notes style navigation
+   ============================================================================= */
+
+.navbar {
+    background-color: var(--white) !important;
+    border-bottom: 1px solid var(--border-light);
+    padding: 1.5rem 0;
+    box-shadow: none;
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+.sitetitle {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-primary) !important;
+    margin: 0;
+    text-decoration: none !important;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.nav-link {
+    font-weight: 400 !important;
+    color: var(--text-secondary) !important;
+    margin: 0 1rem;
+    padding: 0.5rem 0 !important;
+    font-size: 0.95rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--primary-blue) !important;
+    border-bottom-color: var(--primary-blue);
+    background-color: transparent !important;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+/* =============================================================================
+   MAIN CONTENT STYLES - Gates Notes layout
+   ============================================================================= */
+
+.main-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.site-content {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    min-height: 70vh;
+}
+
+.container {
+    max-width: 1200px;
+}
+
 /* We need to add display:inline in order to align the '>>' of the 'read more' link */
 .post-excerpt p {
-	display:inline;
+    display: inline;
+}
+
+/* =============================================================================
+   TYPOGRAPHY - Gates Notes style typography
+   ============================================================================= */
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+}
+
+/* =============================================================================
+   FEATURED POST STYLES - Compact featured post design
+   ============================================================================= */
+
+.featured-post {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.featured-post:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.featured-post-image {
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.featured-post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.featured-post:hover .featured-post-image img {
+    transform: scale(1.05);
+}
+
+.featured-post-content {
+    padding: 2rem;
+}
+
+.featured-post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.featured-badge {
+    background: var(--primary-blue);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.featured-post-date {
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+.featured-post-category {
+    color: var(--primary-blue);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.featured-post-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.featured-post-title a {
+    color: var(--text-primary) !important;
+    text-decoration: none;
+}
+
+.featured-post-title a:hover {
+    color: var(--primary-blue) !important;
+}
+
+.featured-post-excerpt {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.featured-post-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.featured-post-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.featured-post-read-time {
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+/* =============================================================================
+   POST CARD STYLES - Compact Gates Notes-style cards
+   ============================================================================= */
+
+.post-card {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.post-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
+
+.post-card-image {
+    height: 180px;
+    overflow: hidden;
+}
+
+.post-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-card-image img {
+    transform: scale(1.03);
+}
+
+.post-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 180px);
+}
+
+.post-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.post-card-date {
+    color: var(--text-light);
+    font-size: 0.8125rem;
+}
+
+.post-card-category {
+    color: var(--primary-blue);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.post-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.post-card-title a {
+    color: var(--text-primary) !important;
+    text-decoration: none;
+}
+
+.post-card-title a:hover {
+    color: var(--primary-blue) !important;
+}
+
+.post-card-excerpt {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    flex: 1;
+}
+
+.post-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.post-card-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.author-thumb-small {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.author-name {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.post-card-read-time {
+    color: var(--text-light);
+    font-size: 0.8125rem;
+}
+
+/* =============================================================================
+   SECTION STYLING
+   ============================================================================= */
+
+.section-title h2 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-light) !important;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem !important;
+}
+
+.section-title span {
+    border-bottom: 2px solid var(--primary-blue) !important;
+    padding-bottom: 1rem;
+}
+
+.featured-posts {
+    margin-bottom: 3rem;
+}
+
+.recent-posts {
+    margin-bottom: 3rem;
+}
+
+/* =============================================================================
+   POST LISTING STYLES - Clean card design
+   ============================================================================= */
+
+.listfeaturedtag,
+.listrecent .card {
+    border: 1px solid var(--border-light) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    background: var(--white);
+}
+
+.listfeaturedtag:hover,
+.listrecent .card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-2px);
+}
+
+.listfeaturedtag h2.card-title,
+.listrecent h2.card-title {
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.listfeaturedtag h4.card-text,
+.listrecent h4.card-text {
+    color: var(--text-secondary) !important;
+    font-size: 1rem !important;
+    line-height: 1.6;
+    font-weight: 400 !important;
+}
+
+/* =============================================================================
+   FOOTER STYLES - Minimal Gates Notes footer
+   ============================================================================= */
+
+.footer {
+    background-color: var(--background-light) !important;
+    border-top: 1px solid var(--border-light) !important;
+    padding: 3rem 0 !important;
+    margin-top: 5rem !important;
+    font-size: 0.9rem !important;
+    color: var(--text-light) !important;
+}
+
+/* =============================================================================
+   POST-SPECIFIC STYLES - Gates Notes post typography
+   ============================================================================= */
+
+.post-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.article-post {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 1.125rem !important;
+    line-height: 1.7 !important;
+    color: var(--text-primary) !important;
+}
+
+.article-post p {
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.article-post h1 {
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.article-post h2 {
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.article-post h3 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.article-post h4 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+/* =============================================================================
+   BLOCKQUOTES - Gates Notes style
+   ============================================================================= */
+
+blockquote {
+    border-left: 4px solid var(--primary-blue) !important;
+    padding: 1.5rem 2rem !important;
+    margin: 2rem 0 !important;
+    background-color: var(--background-light);
+    font-style: normal !important;
+    color: var(--text-primary) !important;
+    font-size: 1.125rem;
+    border-radius: 0 4px 4px 0;
+}
+
+/* =============================================================================
+   IMAGE STYLES - Clean image presentation
+   ============================================================================= */
+
+.featured-image {
+    margin: 3rem 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.article-post img {
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* =============================================================================
+   AUTHOR BOX STYLES - Clean author presentation
+   ============================================================================= */
+
+.author-box {
+    background-color: var(--background-light);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 4rem;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.author-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* =============================================================================
+   TAGS STYLES - Clean tag design
+   ============================================================================= */
+
+.tags a {
+    font-size: 0.875rem !important;
+    background-color: var(--background-light) !important;
+    color: var(--text-secondary) !important;
+    padding: 0.375rem 0.75rem !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    margin-right: 0.75rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    border: 1px solid var(--border-light);
+    transition: all 0.2s ease;
+}
+
+.tags a:hover {
+    background-color: var(--primary-blue) !important;
+    color: var(--white) !important;
+    border-color: var(--primary-blue) !important;
+    text-decoration: none !important;
+    transform: translateY(-1px);
+}
+
+/* =============================================================================
+   POST NAVIGATION STYLES - Clean navigation
+   ============================================================================= */
+
+.post-navigation {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.post-navigation a {
+    color: var(--text-primary) !important;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.post-navigation a:hover {
+    color: var(--primary-blue) !important;
+}
+
+/* =============================================================================
+   PAGINATION STYLES - Clean Gates Notes pagination
+   ============================================================================= */
+
+.bottompagination {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.pointerup {
+    margin-bottom: 1rem;
+}
+
+.pointerup i {
+    color: var(--border-light) !important;
+    font-size: 1.5rem;
+}
+
+.navigation {
+    display: inline-block;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 0.75rem;
+    color: var(--text-secondary) !important;
+    text-decoration: none;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.pagination a:hover {
+    color: var(--primary-blue) !important;
+    border-color: var(--primary-blue);
+    background-color: var(--background-light);
+}
+
+.pagination .current {
+    background-color: var(--primary-blue) !important;
+    color: var(--white) !important;
+    border-color: var(--primary-blue);
+}
+
+.pagination .disabled {
+    color: var(--text-light) !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.pagination .disabled:hover {
+    color: var(--text-light) !important;
+    border-color: var(--border-light);
+    background-color: transparent;
+}
+
+/* =============================================================================
+   RESPONSIVE IMPROVEMENTS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 2rem 1rem;
+    }
+    
+    .post-title {
+        font-size: 2rem;
+    }
+    
+    .article-post {
+        font-size: 1.0625rem !important;
+    }
+    
+    .nav-link {
+        margin: 0 0.5rem;
+    }
+    
+    .featured-post-content {
+        padding: 1.5rem;
+    }
+    
+    .featured-post-title {
+        font-size: 1.5rem;
+    }
+    
+    .post-card-content {
+        padding: 1.25rem;
+    }
+    
+    .featured-post-image {
+        height: 200px;
+    }
+    
+    .post-card-image {
+        height: 160px;
+    }
+}
+
+@media (max-width: 576px) {
+    .post-title {
+        font-size: 1.75rem;
+    }
+    
+    .sitetitle {
+        font-size: 1.5rem;
+    }
+    
+    .featured-post-footer,
+    .post-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
 }

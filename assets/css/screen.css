@@ -2,7 +2,36 @@
 Template Name: Mediumish 
 Copyright: Sal, WowThemes.net, https://www.wowthemes.net 
 License: https://www.wowthemes.net/freebies-license/ 
+
+NOTE: Many of these styles are being overridden by main.scss for Gates Notes styling.
+The main.scss file contains the primary styling that matches Gates Notes design.
+This file provides the base theme structure but colors, typography, and layout
+are customized in main.scss.
 */
+
+/* Disable some theme colors that conflict with Gates Notes style */
+/* 
+a {
+    color: #00ab6b;
+    transition: all 0.2s;
+}
+
+a:hover {
+    color: #038252;
+    text-decoration: none;
+}
+*/
+
+/* Disable theme blockquote styling - using Gates Notes style instead */
+/*
+blockquote {
+    border-left: 4px solid #00ab6b;
+    padding: 0 20px;
+    font-style: italic;
+    color: rgba(0, 0, 0, .5);
+}
+*/
+
 @media screen and (min-width:1500px) {
     html { font-size:18px; } /* Increase the font size on higher resolutions */
     .container {max-width:80%;}
@@ -22,16 +51,6 @@ License: https://www.wowthemes.net/freebies-license/
     width: 78px;
     margin-top: 8px;
     margin-left: 10px;
-}
-
-a {
-    color: #00ab6b;
-    transition: all 0.2s;
-}
-
-a:hover {
-    color: #038252;
-    text-decoration: none;
 }
 
 pre {
@@ -343,18 +362,6 @@ span.post-read-more a:hover {
     font-size: 1.1rem;
     line-height: 1.84;
     color: rgba(0, 0, 0, .8);
-}
-
-blockquote {
-    border-left: 4px solid #00ab6b;
-    padding: 0 20px;
-    font-style: italic;
-    color: rgba(0, 0, 0, .5);
-}
-
-.article-post p,
-.article-post blockquote {
-    margin: 0 0 1.5rem 0;
 }
 
 .featured-image {
