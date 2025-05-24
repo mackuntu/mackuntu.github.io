@@ -9,7 +9,6 @@ layout: post
 author: martin
 featured: false
 hidden: false
-rating: 4.5
 comments: true
 image: https://live.staticflickr.com/3824/10286650203_b7369893ef_k.jpg
 ---

@@ -50,43 +50,33 @@ post_class: post-template
             {% endif %}
             <!-- End Adsense -->
             
-                        <!-- Post Featured Image -->
+            <!-- Post Featured Image -->
             {% if page.image %}
-
                 {% if site.lazyimages == "enabled" %}
                     <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
                 {% else %}
                     <img class="featured-image img-fluid" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
                 {% endif %}
-
             {% endif %}
             <!-- End Featured Image -->
             
-                        <!-- Post Content -->
+            <!-- Post Content -->
             <div class="article-post">
-                <!-- Toc if any -->
+                <!-- Table of Contents -->
                 {% if page.toc %}
                     {% if page.beforetoc %}
-                        <p>
-                            <em>{{page.beforetoc}}</em>
-                        </p>
+                        <p><em>{{page.beforetoc}}</em></p>
                     {% endif %}
                     <div class="toc mt-4 mb-4 lead">
                         <h3 class="font-weight-bold">Summary</h3>
                         {% include toc.html html=content %}
                     </div>
                 {% endif %}
-                <!-- End Toc -->
+                <!-- End Table of Contents -->
+                
+                <!-- Main Content -->
                 {{content}}
             </div>
-
-            <!-- Rating -->
-            {% if page.rating %}
-                <div class="rating mb-4 d-flex align-items-center">
-                    <strong class="mr-1">Rating:</strong>
-                    {% include star_rating.html %}
-                </div>
-            {% endif %}
 
             <!-- Post Date -->
             <p>
@@ -95,14 +85,13 @@ post_class: post-template
                         <time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
                     </span>
                     {% if page.last_modified_at %}
-                        (Updated:
-                        <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>)
+                        (Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>)
                     {% endif %}
                 </small>
             </p>
 
+            <!-- Post Categories -->
             {% if page.categories %}
-                <!-- Post Categories -->
                 <div class="after-post-cats">
                     <ul class="tags mb-4">
                         {% assign sortedCategories = page.categories | sort %}
@@ -113,11 +102,10 @@ post_class: post-template
                         {% endfor %}
                     </ul>
                 </div>
-                <!-- End Categories -->
             {% endif %}
 
+            <!-- Post Tags -->
             {% if page.tags %}
-                <!-- Post Tags -->
                 <div class="after-post-tags">
                     <ul class="tags">
                         {% assign sortedTags = page.tags | sort %}
@@ -128,24 +116,22 @@ post_class: post-template
                         {% endfor %}
                     </ul>
                 </div>
-                <!-- End Tags -->
             {% endif %}
 
-            <!-- Prev/Next -->
+            <!-- Post Navigation -->
             <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
                 {% if page.previous.url %}
                     <a class="prev d-block col-md-6" href="{{site.baseurl}}{{page.previous.url}}">
-                        &laquo;
-                        {{page.previous.title}}</a>
+                        &laquo; {{page.previous.title}}
+                    </a>
                 {% endif %}
                 {% if page.next.url %}
-                    <a class="next d-block col-md-6 text-lg-right" href="{{site.baseurl}}{{page.next.url}}">{{page.next.title}}
-                        &raquo;
+                    <a class="next d-block col-md-6 text-lg-right" href="{{site.baseurl}}{{page.next.url}}">
+                        {{page.next.title}} &raquo;
                     </a>
                 {% endif %}
                 <div class="clearfix"></div>
             </div>
-            <!-- End Categories -->
 
         </div>
         <!-- End Post -->
@@ -166,31 +152,5 @@ post_class: post-template
         </div>
     </div>
 {% endif %}
-<!--End Comments
+<!-- End Comments
 ================================================== -->
-
-<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
-https://search.google.com/structured-data/testing-tool/u/0/
-================================================== -->
-{% if page.rating %}
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org/",
-  "@type": "Review",
-  "itemReviewed": {
-    "@type": "Thing",
-    "name": "{{ page.title }}"
-  },
-  "author": {
-    "@type": "Person",
-    "name": "{{ author.display_name }}"
-  },
-  "datePublished": "{{ page.date | date:"%Y-%m-%d" }}",
-  "reviewRating": {
-    "@type": "Rating",
-    "ratingValue": "{{ page.rating }}",
-    "bestRating": "5"
-  }
-}
-</script>
-{% endif %}

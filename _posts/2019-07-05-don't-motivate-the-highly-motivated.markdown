@@ -6,121 +6,90 @@ categories:
 tags:
 - green
 layout: post
-description: 
+description: Know when to diversify your management approach and why treating all engineers the same way leads to burnout and turnover
 author: martin
 image: https://miro.medium.com/max/700/1*2oPP1mqKJyt0FQVYY8EGNA.jpeg
 featured: false
 hidden: false
-rating: 4.5
 comments: true
 ---
 
-*Know when to diversify your approach, and why*
+*Know when to diversify your management approach, and why*
 
-It’s 10:30pm on a Friday, my coworker Andy (not his real name) just
-received a text from his boss.
+It's 10:30pm on a Friday when my coworker Andy (not his real name) receives a text from his boss:
 
-> Two weeks ago, you said X will be done today, is it done yet?
+> "Two weeks ago, you said X would be done today. Is it done yet?"
 
-Andy has been working overtime everyday this past two weeks, working on
-a different project his manager prioritized two weeks ago.
+Andy has been working overtime every day for the past two weeks—but on a different project his manager reprioritized just after their original conversation.
 
-Andy is a top-tier engineer, with great velocity, highly technical, and
-brilliant. His boss is a middle-manager, with unrelenting high
-standards, and always pushing his team to deliver more. Both are doing
-exactly what their bosses are expecting them to, but Andy was fuming and
-telling me he’s planning to quit his team. This is because the middle
-manager in this case is making two simple but critical mistakes.
+Andy is a top-tier engineer: high velocity, highly technical, and brilliant. His boss is a middle manager with unrelenting standards who constantly pushes the team to deliver more. Both are doing exactly what their organizations expect from them, yet Andy was fuming and telling me he planned to quit the team.
 
-### Everything is not equally important
+Why? Because his manager was making two critical mistakes that I see repeatedly across the industry.
 
-A manager who insists everything must be treated with highest priority
-but refuses to lay out relevant priority among competing tasks, is
-simply expecting to get more work done out of the same number of
-resources. This situation will simply wear down your team’s energy
-overtime and needs to be avoided at all costs.
+## Mistake #1: Everything is Equally Important (But Nothing Actually Is)
 
-Throughout my career I have seen this pitfall slow down people managers,
-and can be avoided with following four simple steps:
+A manager who insists everything must be treated with the highest priority while refusing to establish clear priorities among competing tasks is essentially asking for more output from the same resources. This approach will inevitably wear down your team's energy and must be avoided at all costs.
 
-Have a plan in place, this can be your scrum board, your backlog, or
-your status wiki pages. Something which lays out your contracts with
-engineers on when to land certain features.
+I've seen this pitfall derail countless managers throughout my career. Here's how to avoid it:
 
-When new work comes up after a plan is established, ask “Why now?” Does
-the work you are about to add need to get done right away? If so, why?
+### The Four-Step Priority Framework
 
-If new work is emergent, that’s ok, what needs to be dropped from your
-current plan to pick up this work? It’s crucial to communicate relative
-priority of new work when adding it to the plan.
+**1. Establish a visible plan.** Use your scrum board, backlog, or status wiki—something that clearly documents your commitments to engineers about when features will be delivered.
 
-Reprioritization means committed deliverables in the future may shift.
-Check the effect of slotting in the new work on your current plan, and
-proactively push dates out and communicate them to your leaders.
+**2. Question urgency.** When new work appears after your plan is set, ask "Why now?" Does this work need to happen immediately? If so, why?
 
-### Fixing what doesn’t need fixed
+**3. Make trade-offs explicit.** If new work is truly emergent, what gets dropped from your current plan? Always communicate the relative priority of new work when adding it to the plan.
 
-Not all events happen according to plan. Exceptions happen, when they
-do, it’s the manager’s job to deep dive and figure
-out *whether *anything is broken and *fixing what needs fixed*.
+**4. Proactively communicate changes.** Reprioritization affects future deliverables. Check how new work impacts your current plan and push dates out preemptively, then communicate these changes to your leadership.
 
-Figure 1 below illustrates an engineer’s output as a function of
-motivation and velocity, and managerial influence is the transformation.
-Ultimately, it’s a manager’s job to move everyone towards Efficiency,
-but more importantly is to identify which state is an engineer in,
-before acting.
+## Mistake #2: Fixing What Isn't Broken
+
+Not everything that goes wrong needs a management intervention. When exceptions happen, your job is to diagnose whether anything is actually broken and fix only what needs fixing.
+
+Think of engineer performance as a function of motivation and velocity, with your management approach as the transformation function. Your goal is to move everyone toward maximum efficiency, but first you must identify which state each engineer is in before taking action.
 
 <img src="/assets/images/motivate.png" style="width:5.87569in;height:5.41597in"/>
 
-Figure 1: Output = F (M, V), where M is motivation, V is velocity, and F
-is managerial influence
+*Figure 1: Output = F(Motivation, Velocity), where F is managerial influence*
 
-(1) Mindless Operations, a high-velocity engineer who loses motivation
-to work each day is a sign that the work isn’t interesting enough, or
-simply isn’t interesting enough for the engineer. The result of this is
-that the team output suffers. Sure, this team could close a lot of
-tickets, execute a lot of CMs (change management), but actual impactful
-projects keep getting delayed in favor of the next emergent issue. This
-could be caused by
-a [<u>“Day-2” </u>](https://blog.aboutamazon.com/company-news/2016-letter-to-shareholders)mentality
-team, or a team that has too much tech debt and not
-enough attention to operational excellence, or the engineer has simply
-outgrown the current challenges they are presented with.
+### The Three States of Engineer Performance
 
-It’s up to the manager to sell and motivate the team, drum up morale,
-and make some hard decisions. Maybe it’s ok to drop OE for a week to
-work on high output long term initiatives, or maybe the team shouldn’t
-do what they are being asked to do day-in day-out, and instead
-reprioritize the roadmap to finish existing features before committing
-to building new features.
+**1. Mindless Operations (High Velocity, Low Motivation)**
 
-(2) Misdirected Energy is when highly motivated engineers work on the
-wrong tasks leading to slow velocity. This is what happened to Andy. To
-fix this, the manager needs to reflect on why we landed in this state,
-by answering these questions:
+A high-velocity engineer who's losing daily motivation signals that work isn't challenging or engaging enough. While the team might close lots of tickets and execute change management efficiently, impactful projects get delayed in favor of emergent issues.
 
-1. Have you set and communicated the correct priority? Are they blocked on
-something which you can fix?
+This often results from a ["Day 2" mentality](https://blog.aboutamazon.com/company-news/2016-letter-to-shareholders), excessive tech debt with insufficient operational excellence focus, or an engineer who has outgrown their current challenges.
 
-2. Have you adequately equipped the engineer with the right tools?
+**Your response:** Sell the vision, boost morale, and make hard decisions. Consider dropping operational excellence work temporarily to focus on high-impact initiatives, or reprioritize the roadmap to complete existing features before starting new ones.
 
-3. Is there a problem with the engineer’s capabilities?
+**2. Misdirected Energy (High Motivation, Low Velocity)**
 
-So long as there are no issues with the engineer’s capabilities it
-is *always* better for the manager to correct course and reflect on what
-the manager did wrong to cause the engineer to be in this state instead
-of asking inquisitive questions that are veiled accusations.
+This was Andy's situation: highly motivated engineers working on the wrong tasks, leading to poor velocity. To address this, reflect on how you reached this state by asking:
 
-(3) I found the following mechanisms help boost a team’s bonding,
-motivation, and velocity in general.
+- Have you clearly communicated the correct priorities? Are they blocked on something you can resolve?
+- Have you provided adequate tools and resources?
+- Is there a capability issue with the engineer?
 
-1. Make sure people talk to each other, a good atmosphere is where no
-question is stupid, and anyone can feel open to speak their mind.
+As long as there's no capability problem, it's always better to course-correct and reflect on your management failures rather than asking accusatory questions disguised as inquiries.
 
-2. Sign people up for training, suggest conferences to go to, team travel
-is a great way to jolt conversation and inspire collaboration.
+**3. Efficiency (High Motivation, High Velocity)**
 
-3. Periodic celebrations — could be anything, from a team member’s birthday
-to a feature launch party.
+This is your target state. Maintain it through consistent practices that support both dimensions.
 
-4. Have 1:1s, and ask “what have I made more confusing recently”
+## Building Team Efficiency: Four Key Practices
+
+**1. Foster open communication.** Create an environment where no question is considered stupid and everyone feels comfortable speaking up.
+
+**2. Invest in growth.** Sign people up for training, suggest relevant conferences, and organize team travel to spark conversations and inspire collaboration.
+
+**3. Celebrate regularly.** Mark everything from team birthdays to feature launches. Recognition drives motivation.
+
+**4. Practice reflective leadership.** In 1:1s, ask "What have I made more confusing recently?" This question surfaces issues before they become problems.
+
+## The Bottom Line
+
+The title "Don't motivate the highly motivated" doesn't mean you should ignore your high performers. Instead, it means recognizing that different engineers need different types of support at different times. 
+
+Highly motivated engineers with low velocity need better direction and resources, not motivation. High-velocity engineers with low motivation need more engaging challenges, not efficiency pressure.
+
+Your job as a manager isn't to apply the same approach to everyone—it's to diagnose each situation accurately and respond appropriately. When you do this well, you keep talented engineers like Andy engaged and productive instead of driving them toward the exit.
