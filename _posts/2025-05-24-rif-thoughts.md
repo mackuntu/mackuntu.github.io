@@ -5,7 +5,7 @@ categories: [opinion]
 tags: [opinion, thoughts, leadership, management, AI, culture]
 description: "Why this wave of layoffs is different: How AI is reshaping skill demands, exposing the failures of empire building culture, and forcing companies to finally measure what matters."
 author: martin
-image: 
+image: assets/images/rif-ai-transformation.jpg
 featured: true
 hidden: false
 comments: true
