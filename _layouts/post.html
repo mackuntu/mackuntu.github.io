@@ -5,11 +5,75 @@ archive: false
 post_class: post-template
 ---
 
+<!-- Featured Image with Title Overlay -->
+{% if page.image %}
+<div class="hero-article-image">
+    <figure class="article-image-container">
+        {% if site.lazyimages == "enabled" %}
+            <img class="hero-featured-image lazyimg" 
+                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" 
+                 data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" 
+                 alt="{{ page.title }}">
+        {% else %}
+            <img class="hero-featured-image" 
+                 src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" 
+                 alt="{{ page.title }}">
+        {% endif %}
+    </figure>
+    
+    <!-- Title Overlay -->
+    <div class="hero-overlay">
+        <div class="hero-content">
+            {% if page.categories %}
+                <div class="hero-category">
+                    {% assign sortedCategories = page.categories | sort %}
+                    {% for category in sortedCategories %}
+                        <span class="category-badge">{{ category | upcase }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <h1 class="hero-title">{{ page.title }}</h1>
+            
+            {% if page.excerpt %}
+                <p class="hero-subtitle">{{ page.excerpt | strip_html }}</p>
+            {% endif %}
+            
+            <div class="hero-meta">
+                {% assign author = site.authors[page.author] %}
+                <span class="author-name">By {{ author.display_name | default: "Martin Qian" }}</span>
+                <time class="publish-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date: "%B %d, %Y" }}</time>
+                {% if page.read_time %}
+                    <span class="read-time">{{ page.read_time }} min read</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <!-- Article Container -->
 <div class="article-container">
     <article class="post-content">
         
-        <!-- Article Header -->
+        <!-- Article Actions Bar -->
+        <div class="article-actions-bar">
+            <div class="actions-container">
+                <button class="action-btn share-btn" onclick="shareArticle()" aria-label="Share article">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                    </svg>
+                </button>
+                <button class="action-btn bookmark-btn" onclick="bookmarkArticle()" aria-label="Bookmark article">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- If no featured image, show regular header -->
+        {% unless page.image %}
         <header class="article-header">
             <!-- Category -->
             {% if page.categories %}
@@ -39,48 +103,9 @@ post_class: post-template
                         <span class="read-time">{{ page.read_time }} min read</span>
                     {% endif %}
                 </div>
-                
-                <div class="meta-right">
-                    <div class="article-actions">
-                        <button class="action-btn share-btn" onclick="shareArticle()" aria-label="Share article">
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
-                            </svg>
-                        </button>
-                        <button class="action-btn bookmark-btn" onclick="bookmarkArticle()" aria-label="Bookmark article">
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
             </div>
-            
-            {% if page.last_modified_at %}
-                <div class="article-updated">
-                    Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%B %d, %Y" }}</time>
-                </div>
-            {% endif %}
         </header>
-
-        <!-- Featured Image -->
-        {% if page.image %}
-            <figure class="article-image">
-                {% if site.lazyimages == "enabled" %}
-                    <img class="featured-image lazyimg" 
-                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" 
-                         data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" 
-                         alt="{{ page.title }}">
-                {% else %}
-                    <img class="featured-image" 
-                         src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" 
-                         alt="{{ page.title }}">
-                {% endif %}
-                {% if page.image_caption %}
-                    <figcaption>{{ page.image_caption }}</figcaption>
-                {% endif %}
-            </figure>
-        {% endif %}
+        {% endunless %}
 
         <!-- Table of Contents -->
         {% if page.toc %}

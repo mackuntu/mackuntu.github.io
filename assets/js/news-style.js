@@ -393,117 +393,101 @@ document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('.main-header');
         if (!header) return;
         
-        let lastScrollTop = 0;
+        let lastScrollY = 0;
         let ticking = false;
-        let scrollDirection = 'up';
-        let scrollBuffer = 0;
-        let hideTimeout = null;
-        let showTimeout = null;
-        let scrollVelocity = 0;
-        let lastTimestamp = 0;
-        let headerState = 'visible'; // 'visible', 'shrunk', 'hidden', 'showing'
+        let currentState = 'visible';
+        let targetState = 'visible';
+        let isTransitioning = false;
         
-        function updateHeader() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollDelta = scrollTop - lastScrollTop;
-            const currentTime = performance.now();
-            
-            // Calculate scroll velocity
-            if (currentTime - lastTimestamp > 0) {
-                scrollVelocity = Math.abs(scrollDelta) / (currentTime - lastTimestamp);
-            }
-            lastTimestamp = currentTime;
-            
-            // Only update direction if scroll delta is significant (reduces jitter)
-            if (Math.abs(scrollDelta) > 3) {
-                scrollDirection = scrollDelta > 0 ? 'down' : 'up';
-                scrollBuffer += scrollDelta;
+        // Add CSS for smoother transitions
+        const style = document.createElement('style');
+        style.textContent = `
+            .main-header {
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                will-change: transform;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                transform: translateZ(0);
             }
             
-            // Clear any pending timeouts first
-            function clearAllTimeouts() {
-                if (hideTimeout) {
-                    clearTimeout(hideTimeout);
-                    hideTimeout = null;
-                }
-                if (showTimeout) {
-                    clearTimeout(showTimeout);
-                    showTimeout = null;
-                }
+            .main-header.no-transition {
+                transition: none !important;
             }
+        `;
+        document.head.appendChild(style);
+        
+        function updateHeaderState() {
+            const scrollY = window.pageYOffset;
+            const scrollDelta = scrollY - lastScrollY;
+            const scrollDirection = scrollDelta > 0 ? 'down' : 'up';
             
-            // State machine for header behavior
-            if (scrollTop <= 80) {
-                // Near top - always visible
-                clearAllTimeouts();
-                header.classList.remove('shrunk', 'ultra-shrunk', 'show');
-                headerState = 'visible';
-                scrollBuffer = 0;
-            } else if (scrollTop <= 300) {
-                // Middle zone - shrunk but visible
-                clearAllTimeouts();
-                header.classList.add('shrunk');
-                header.classList.remove('ultra-shrunk', 'show');
-                headerState = 'shrunk';
-                scrollBuffer = 0;
+            // Determine target state based on scroll position
+            if (scrollY <= 80) {
+                targetState = 'visible';
+            } else if (scrollY <= 300) {
+                targetState = 'shrunk';
             } else {
-                // Deep scroll zone - hide/show logic
-                header.classList.add('shrunk');
-                
-                const isScrollingFast = scrollVelocity > 0.5;
-                const hideThreshold = isScrollingFast ? 40 : 80;
-                const showThreshold = isScrollingFast ? -20 : -40;
-                
-                if (scrollDirection === 'down' && scrollBuffer > hideThreshold && headerState !== 'hidden') {
-                    clearAllTimeouts();
-                    headerState = 'hiding';
-                    
-                    hideTimeout = setTimeout(() => {
-                        header.classList.add('ultra-shrunk');
-                        header.classList.remove('show');
-                        headerState = 'hidden';
-                        hideTimeout = null;
-                        scrollBuffer = 0;
-                    }, isScrollingFast ? 150 : 250);
-                    
-                } else if (scrollDirection === 'up' && scrollBuffer < showThreshold && headerState === 'hidden') {
-                    clearAllTimeouts();
-                    headerState = 'showing';
-                    
-                    showTimeout = setTimeout(() => {
-                        header.classList.add('show');
-                        headerState = 'shrunk';
-                        showTimeout = null;
-                        scrollBuffer = 0;
-                    }, isScrollingFast ? 100 : 150);
+                // Only hide on scroll down, show on scroll up
+                if (scrollDirection === 'down' && Math.abs(scrollDelta) > 5) {
+                    targetState = 'hidden';
+                } else if (scrollDirection === 'up' && Math.abs(scrollDelta) > 5) {
+                    targetState = 'shrunk';
                 }
             }
             
-            // Reset scroll buffer when direction changes or accumulates too much
-            if ((scrollDirection === 'up' && scrollBuffer > 50) || 
-                (scrollDirection === 'down' && scrollBuffer < -50) ||
-                Math.abs(scrollBuffer) > 200) {
-                scrollBuffer = 0;
+            // Apply state changes if needed
+            if (targetState !== currentState && !isTransitioning) {
+                isTransitioning = true;
+                
+                // Remove all classes first
+                header.classList.remove('shrunk', 'ultra-shrunk', 'show');
+                
+                // Apply new state
+                switch (targetState) {
+                    case 'visible':
+                        // Default state, no classes needed
+                        break;
+                    case 'shrunk':
+                        header.classList.add('shrunk');
+                        break;
+                    case 'hidden':
+                        header.classList.add('shrunk', 'ultra-shrunk');
+                        break;
+                }
+                
+                currentState = targetState;
+                
+                // Reset transition flag after animation completes
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 300);
             }
             
-            // Debug logging (remove in production)
-            // console.log(`Scroll: ${scrollTop}, Direction: ${scrollDirection}, Buffer: ${scrollBuffer}, State: ${headerState}`);
-            
-            lastScrollTop = scrollTop;
+            lastScrollY = scrollY;
             ticking = false;
         }
         
         function requestTick() {
             if (!ticking) {
-                requestAnimationFrame(updateHeader);
+                requestAnimationFrame(updateHeaderState);
                 ticking = true;
             }
         }
         
+        // Use passive listener for better performance
         window.addEventListener('scroll', requestTick, { passive: true });
         
-        // Initial check
-        updateHeader();
+        // Handle initial state
+        updateHeaderState();
+        
+        // Handle window resize
+        window.addEventListener('resize', debounce(() => {
+            header.classList.add('no-transition');
+            updateHeaderState();
+            setTimeout(() => {
+                header.classList.remove('no-transition');
+            }, 100);
+        }, 250), { passive: true });
     }
     
     // Initialize shrinking header

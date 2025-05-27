@@ -92,9 +92,9 @@ layout: default
             <h2 class="section-header">Latest Articles</h2>
             
             <div class="articles-list">
-                {% assign latest_posts = paginator.posts | where: "featured", nil %}
+                {% assign latest_posts = site.posts %}
                 {% for post in latest_posts limit: 6 %}
-                    {% unless post.hidden == true %}
+                    {% unless post.hidden == true or post == hero_post %}
                     <article class="article-item">
                         {% if post.image %}
                         <div class="article-image">
@@ -158,23 +158,6 @@ layout: default
                         {{ category[0] | capitalize }} ({{ category[1].size }})
                     </a>
                 </li>
-                {% endfor %}
-            </ul>
-        </div>
-        
-        <!-- Recent Posts Section -->
-        <div class="sidebar-section">
-            <h4>Recent Posts</h4>
-            <ul class="sidebar-list">
-                {% for post in site.posts limit: 5 %}
-                    {% unless post.hidden == true %}
-                    <li>
-                        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-                        <div class="story-meta">
-                            <span>{{ post.date | date: "%B %d, %Y" }}</span>
-                        </div>
-                    </li>
-                    {% endunless %}
                 {% endfor %}
             </ul>
         </div>

@@ -121,7 +121,10 @@ a:hover {
     position: sticky;
     top: 0;
     z-index: 100;
-    transition: all 0.3s ease;
+    /* Performance optimizations */
+    contain: layout style paint;
+    will-change: transform;
+    /* Transition handled by JavaScript for better control */
 }
 
 /* Shrinking Header States */
@@ -160,34 +163,9 @@ a:hover {
 /* Ultra-compact mode for deep scrolling */
 .main-header.ultra-shrunk {
     transform: translateY(-100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.main-header.ultra-shrunk.show {
-    transform: translateY(0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Prevent layout shift during transitions */
-.main-header * {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Force hardware acceleration for smoother animations */
-.main-header {
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
-
-/* Ensure clean state transitions */
-.main-header:not(.ultra-shrunk) {
-    transform: translateY(0);
-}
-
-.main-header.ultra-shrunk:not(.show) {
-    transform: translateY(-100%);
-}
+/* Removed conflicting transitions - now handled by JavaScript */
 
 /* Compact header for article pages */
 .layout-post .main-header {
@@ -325,6 +303,8 @@ a:hover {
     text-align: center;
     padding: 30px 0;
     border-bottom: 1px solid #e2e2e2;
+    /* Prevent layout shifts */
+    contain: layout style;
 }
 
 .site-title {
@@ -392,6 +372,9 @@ a:hover {
 .site-content {
     min-height: 60vh;
     padding: 40px 0;
+    /* Isolate content from header animations */
+    contain: layout style;
+    isolation: isolate;
 }
 
 /* Hero Section */
@@ -1319,17 +1302,48 @@ button:focus {
     font-style: italic;
 }
 
-/* Article Image */
+/* Article Image - Force it to be very wide */
 .article-image {
-    margin: 40px 0;
+    margin: 60px 0;
     text-align: center;
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 .featured-image {
     width: 100%;
+    max-width: 1600px;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 0;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    margin: 0 auto;
+    display: block;
+}
+
+/* Add padding on smaller screens */
+@media (max-width: 1600px) {
+    .article-image {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .article-image {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .article-image {
+        padding: 0 10px;
+    }
+    .featured-image {
+        border-radius: 8px;
+    }
 }
 
 .article-image figcaption {
@@ -1338,6 +1352,10 @@ button:focus {
     color: #666;
     font-style: italic;
     line-height: 1.4;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
 }
 
 /* Table of Contents */
@@ -1453,7 +1471,22 @@ button:focus {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin: 25px 0;
+    margin: 40px auto;
+    display: block;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Make inline images in article body larger */
+.article-body p img {
+    max-width: 120%;
+    margin: 40px -10%;
+}
+
+@media (max-width: 900px) {
+    .article-body p img {
+        max-width: 100%;
+        margin: 30px 0;
+    }
 }
 
 .article-body ul,
@@ -1749,4 +1782,173 @@ button:focus {
     .sidebar {
         display: none;
     }
+}
+
+/* Force featured images to be wide on post pages */
+.layout-post .article-image {
+    margin: 60px 0 !important;
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    background-color: #f8f8f8;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.layout-post .featured-image {
+    /* Let the image size itself naturally */
+    width: auto !important;
+    height: auto !important;
+    max-width: 70% !important;
+    max-height: none !important;
+    display: inline-block !important;
+    margin: 0 auto !important;
+}
+
+/* For smaller screens, reduce the max-width */
+@media (max-width: 768px) {
+    .layout-post .featured-image {
+        max-width: 90% !important;
+    }
+}
+
+/* Ensure the image container doesn't get constrained */
+.layout-post .article-container {
+    overflow: visible !important;
+}
+
+/* Hero Article Image with Title Overlay */
+.hero-article-image {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-bottom: 60px;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.article-image-container {
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    max-height: 90vh;
+}
+
+.hero-featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Title Overlay */
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+    padding: 80px 0 40px;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    color: white;
+}
+
+.hero-category {
+    margin-bottom: 20px;
+}
+
+.category-badge {
+    background-color: #326891;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    opacity: 0.9;
+    max-width: 800px;
+}
+
+.hero-meta {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-meta span,
+.hero-meta time {
+    display: inline-block;
+}
+
+/* Article Actions Bar */
+.article-actions-bar {
+    padding: 20px 0;
+    border-bottom: 1px solid #e2e2e2;
+    margin-bottom: 40px;
+}
+
+.actions-container {
+    display: flex;
+    gap: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 0 20px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .article-image-container {
+        min-height: 50vh;
+        max-height: 70vh;
+    }
+}
+
+/* Remove old article image styles that conflict */
+.layout-post .article-image {
+    display: none !important;
+}
+
+/* Article Container adjustments */
+.layout-post .article-container {
+    margin-top: 0;
+    padding-top: 0;
 } 
