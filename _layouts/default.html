@@ -10,11 +10,11 @@
 
 {% seo %}
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-<link href="{{ site.baseurl }}/assets/css/screen.css" rel="stylesheet">
+<!-- NYT-style fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet">
+<!-- Custom Professional News-style CSS -->
+<link href="{{ site.baseurl }}/assets/css/news-style.css" rel="stylesheet">
 
 <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
 
@@ -33,122 +33,178 @@
 
 {% capture layout %}{% if page.layout %}layout-{{ page.layout }}{% endif %}{% endcapture %}
 <body class="{{layout}}">
-	<!-- defer loading of font and font awesome -->
-	<noscript id="deferred-styles">
-		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-	</noscript>
 
+<!-- Skip to content link for accessibility -->
+<a class="skip-link" href="#main-content">Skip to content</a>
 
-<!-- Begin Menu Navigation
-================================================== -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<!-- Top utility bar -->
+<div class="utility-bar">
     <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="{{ site.baseurl }}/">
-            <h1 class="sitetitle">{{ site.name }}</h1>
-        </a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                {% if page.url == "/" %}
-                <li class="nav-item active">
-                {% else %}
-                <li class="nav-item">
-                {% endif %}
-                <a class="nav-link" href="{{ site.baseurl }}/">Home</a>
-                </li>
-
-                <li class="nav-item">
-                <a class="nav-link" href="{{ site.baseurl }}/about">About</a>
-                </li>
-
-                <li class="nav-item">
-                <a class="nav-link" href="{{ site.baseurl }}/categories">Categories</a>
-                </li>
-
-                <li class="nav-item">
-                <a class="nav-link" href="https://github.com/mackuntu/" target="_blank">GitHub</a>
-                </li>
-            </ul>
+        <div class="utility-nav">
+            <div class="utility-left">
+                <span class="date">{{ site.time | date: "%A, %B %d, %Y" }}</span>
+            </div>
+            <div class="utility-right">
+                <a href="#" class="utility-link">Subscribe</a>
+                <a href="#" class="utility-link">Log In</a>
+            </div>
         </div>
     </div>
-</nav>
-<!-- End Navigation
-================================================== -->
-
-<div class="site-content">
-
-<div class="container">
-
-<!-- Content
-================================================== -->
-<div class="main-content">
-    {{ content }}
 </div>
 
-{% if site.mailchimp-list %}
-<!-- Newsletter Signup
-================================================== -->
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card border-0 bg-light">
-                <div class="card-body text-center">
-                    <h5>Subscribe to updates</h5>
-                    <p class="text-muted">Get notified about new posts</p>
-                    <form action="{{site.mailchimp-list}}" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                        <div class="input-group">
-                            <input type="email" placeholder="Your email" name="EMAIL" class="form-control" id="mce-EMAIL" autocomplete="on" required>
-                            <div class="input-group-append">
-                                <input type="submit" value="Subscribe" name="subscribe" class="btn btn-primary">
-                            </div>
-                        </div>
-                    </form>
+<!-- Main Header -->
+<header class="main-header">
+    <div class="container">
+        <!-- Top navigation -->
+        <nav class="top-nav">
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
+            <div class="nav-sections">
+                <div class="nav-section">
+                    <a href="{{ site.baseurl }}/category/business" class="nav-link">Business</a>
+                    <div class="dropdown-menu">
+                        <a href="{{ site.baseurl }}/category/startup">Startup</a>
+                        <a href="{{ site.baseurl }}/category/management">Management</a>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <a href="{{ site.baseurl }}/category/technology" class="nav-link">Technology</a>
+                </div>
+                <div class="nav-section">
+                    <a href="{{ site.baseurl }}/category/opinion" class="nav-link">Opinion</a>
+                </div>
+                <div class="nav-section">
+                    <a href="{{ site.baseurl }}/category/life-event" class="nav-link">Life</a>
+                </div>
+                <div class="nav-section">
+                    <a href="{{ site.baseurl }}/category/defense" class="nav-link">Analysis</a>
                 </div>
             </div>
+
+            <div class="header-actions">
+                <button class="search-btn" aria-label="Search">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Site title/masthead -->
+        <div class="masthead">
+            <h1 class="site-title">
+                <a href="{{ site.baseurl }}/">{{ site.name }}</a>
+            </h1>
+            <p class="site-tagline">{{ site.description }}</p>
+        </div>
+
+        <!-- Main navigation -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item {% if page.url == '/' %}active{% endif %}">
+                    <a href="{{ site.baseurl }}/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ site.baseurl }}/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ site.baseurl }}/categories" class="nav-link">All Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://github.com/mackuntu/" target="_blank" class="nav-link">GitHub</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main id="main-content" class="site-content">
+    <div class="container">
+        {{ content }}
+    </div>
+</main>
+
+{% if site.mailchimp-list %}
+<!-- Newsletter Signup -->
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-content">
+            <h3>Subscribe to MartinNotes</h3>
+            <p>Get the latest insights and thoughts delivered to your inbox</p>
+            <form action="{{site.mailchimp-list}}" method="post" name="mc-embedded-subscribe-form" class="newsletter-form" target="_blank" novalidate>
+                <div class="form-group">
+                    <input type="email" placeholder="Enter your email address" name="EMAIL" class="email-input" id="mce-EMAIL" autocomplete="on" required>
+                    <button type="submit" name="subscribe" class="subscribe-btn">Subscribe</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
+</section>
 {% endif %}
-    
-</div>
 
-<!-- Footer
-================================================== -->
-<footer class="footer">
+<!-- Footer -->
+<footer class="main-footer">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 text-center text-md-left">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>{{ site.name }}</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ site.baseurl }}/">Home</a></li>
+                    <li><a href="{{ site.baseurl }}/about">About</a></li>
+                    <li><a href="{{ site.baseurl }}/categories">Categories</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ site.baseurl }}/category/business">Business</a></li>
+                    <li><a href="{{ site.baseurl }}/category/technology">Technology</a></li>
+                    <li><a href="{{ site.baseurl }}/category/opinion">Opinion</a></li>
+                    <li><a href="{{ site.baseurl }}/category/management">Management</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/mackuntu/" target="_blank">GitHub</a></li>
+                    <li><a href="https://twitter.com/martin_qian" target="_blank">Twitter</a></li>
+                    <li><a href="mailto:mackuntu@gmail.com">Email</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>More</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ site.baseurl }}/feed.xml">RSS Feed</a></li>
+                    <li><a href="{{ site.baseurl }}/sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
                 <p>&copy; {{ site.time | date: "%Y" }} {{ site.name }}. All rights reserved.</p>
             </div>
-            <div class="col-md-6 text-center text-md-right">    
-                <p><a href="https://www.wowthemes.net/mediumish-free-jekyll-template/" target="_blank" class="text-muted">Mediumish Theme</a></p>
+            <div class="footer-bottom-right">
+                <p>Inspired by quality journalism</p>
             </div>
         </div>
     </div>
 </footer>
 
-</div> <!-- /.site-content -->
-
-<!-- Scripts
-================================================== -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-<script src="{{ site.baseurl }}/assets/js/mediumish.js"></script>
+<!-- Scripts -->
+<script src="{{ site.baseurl }}/assets/js/news-style.js"></script>
 
 {% if site.lazyimages == "enabled" %}
 <script src="{{ site.baseurl }}/assets/js/lazyload.js"></script>
 {% endif %}
-
-<script src="{{ site.baseurl }}/assets/js/ie10-viewport-bug-workaround.js"></script> 
 
 {% if page.layout == 'post' %}
 <script id="dsq-count-scr" src="//{{site.disqus}}.disqus.com/count.js"></script>

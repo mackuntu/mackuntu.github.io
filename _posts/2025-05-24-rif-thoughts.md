@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Great Recalibration: RIFs, AI, and the End of Empire Building"
+date: 2025-05-24 00:00:00 Z
 categories: [opinion]
 tags: [opinion, thoughts, leadership, management, AI, culture]
 description: "Why this wave of layoffs is different: How AI is reshaping skill demands, exposing the failures of empire building culture, and forcing companies to finally measure what matters."

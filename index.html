@@ -3,44 +3,215 @@ title: Home
 layout: default
 ---
 
-{% if page.url == "/" %}
-
-<!-- Featured
-================================================== -->
-<section class="featured-posts">
-    <div class="row">
-        {% for post in site.posts %}
-            {% if post.featured == true and post.hidden != true %}
-                {% include featuredbox.html %}
+<!-- Hero Section -->
+{% assign hero_post = site.posts | where: "featured", true | first %}
+{% if hero_post %}
+<section class="hero-section">
+    <article class="hero-story">
+        {% if hero_post.image %}
+        <div class="hero-image">
+            <img src="{% if hero_post.image contains "://" %}{{ hero_post.image }}{% else %}{{ site.baseurl }}/{{ hero_post.image }}{% endif %}" alt="{{ hero_post.title }}" loading="lazy">
+            <div class="hero-overlay"></div>
+        </div>
+        {% endif %}
+        
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span class="hero-category">{{ hero_post.categories | first | upcase }}</span>
+                <span class="hero-date">{{ hero_post.date | date: "%B %d, %Y" }}</span>
+            </div>
+            
+            <h1 class="hero-title">
+                <a href="{{ site.baseurl }}{{ hero_post.url }}">{{ hero_post.title }}</a>
+            </h1>
+            
+            {% if hero_post.excerpt %}
+            <p class="hero-excerpt">{{ hero_post.excerpt | strip_html | truncatewords: 40 }}</p>
             {% endif %}
-        {% endfor %}
-    </div>
+            
+            <div class="hero-author">
+                <span>By {{ hero_post.author | default: site.authors.martin.display_name }}</span>
+                {% if hero_post.read_time %}
+                <span>{{ hero_post.read_time }} min read</span>
+                {% endif %}
+            </div>
+        </div>
+    </article>
 </section>
-
 {% endif %}
 
-<!-- Posts Index
-================================================== -->
-<section class="recent-posts">
-    <div class="section-title">
-        <h2><span>All Notes</span></h2>
+<!-- Main Content Grid -->
+<div class="homepage-grid">
+    <!-- Primary Content -->
+    <div class="primary-content">
+        
+        <!-- Top Stories Section -->
+        <section class="top-stories">
+            <h2 class="section-header">Top Stories</h2>
+            
+            <div class="stories-grid">
+                {% assign featured_posts = site.posts | where: "featured", true %}
+                {% assign top_posts = featured_posts | slice: 1, 3 %}
+                {% if top_posts.size == 0 %}
+                    {% assign top_posts = site.posts | slice: 1, 3 %}
+                {% endif %}
+                
+                {% for post in top_posts %}
+                    {% unless post.hidden == true %}
+                    <article class="top-story {% cycle 'large', 'medium', 'medium' %}">
+                        {% if post.image %}
+                        <div class="story-image">
+                            <img src="{% if post.image contains "://" %}{{ post.image }}{% else %}{{ site.baseurl }}/{{ post.image }}{% endif %}" alt="{{ post.title }}" loading="lazy">
+                        </div>
+                        {% endif %}
+                        
+                        <div class="story-content">
+                            <div class="story-meta">
+                                <span class="story-category">{{ post.categories | first | upcase }}</span>
+                                <time class="story-date">{{ post.date | date: "%b %d" }}</time>
+                            </div>
+                            
+                            <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+                            
+                            {% if post.excerpt %}
+                            <p class="story-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+                            {% endif %}
+                            
+                            <div class="story-byline">
+                                <span>{{ post.author | default: site.authors.martin.display_name }}</span>
+                            </div>
+                        </div>
+                    </article>
+                    {% endunless %}
+                {% endfor %}
+            </div>
+        </section>
+        
+        <!-- Latest Articles Section -->
+        <section class="latest-articles">
+            <h2 class="section-header">Latest Articles</h2>
+            
+            <div class="articles-list">
+                {% assign latest_posts = paginator.posts | where: "featured", nil %}
+                {% for post in latest_posts limit: 6 %}
+                    {% unless post.hidden == true %}
+                    <article class="article-item">
+                        {% if post.image %}
+                        <div class="article-image">
+                            <img src="{% if post.image contains "://" %}{{ post.image }}{% else %}{{ site.baseurl }}/{{ post.image }}{% endif %}" alt="{{ post.title }}" loading="lazy">
+                        </div>
+                        {% endif %}
+                        
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">{{ post.categories | first | upcase }}</span>
+                                <time class="article-date">{{ post.date | date: "%B %d, %Y" }}</time>
+                            </div>
+                            
+                            <h4><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
+                            
+                            {% if post.excerpt %}
+                            <p class="article-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+                            {% endif %}
+                            
+                            <div class="article-byline">
+                                <span>By {{ post.author | default: site.authors.martin.display_name }}</span>
+                                {% if post.read_time %}
+                                <span>{{ post.read_time }} min read</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                    {% endunless %}
+                {% endfor %}
+            </div>
+        </section>
     </div>
-
-    <div class="row">
-        {% for post in paginator.posts %}
-            {% unless post.hidden == true %}
-                {% include postbox.html %}
-            {% endunless %}
-        {% endfor %}
-    </div>
-</section>
-
-<!-- Pagination
-================================================== -->
-<div class="bottompagination">
-    <div class="pointerup"><i class="fa fa-caret-up"></i></div>
-    <span class="navigation" role="navigation">
-        {% include pagination.html %}
-    </span>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <!-- Most Popular Section -->
+        <div class="sidebar-section">
+            <h4>Most Popular</h4>
+            <ul class="sidebar-list">
+                {% assign popular_posts = site.posts | sort: 'date' | reverse %}
+                {% for post in popular_posts limit: 5 %}
+                    {% unless post.hidden == true %}
+                    <li>
+                        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+                        <div class="story-meta">
+                            <span class="story-category">{{ post.categories | first | upcase }}</span>
+                        </div>
+                    </li>
+                    {% endunless %}
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!-- Categories Section -->
+        <div class="sidebar-section">
+            <h4>Categories</h4>
+            <ul class="sidebar-list">
+                {% for category in site.categories %}
+                <li>
+                    <a href="{{ site.baseurl }}/category/{{ category[0] }}">
+                        {{ category[0] | capitalize }} ({{ category[1].size }})
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!-- Recent Posts Section -->
+        <div class="sidebar-section">
+            <h4>Recent Posts</h4>
+            <ul class="sidebar-list">
+                {% for post in site.posts limit: 5 %}
+                    {% unless post.hidden == true %}
+                    <li>
+                        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+                        <div class="story-meta">
+                            <span>{{ post.date | date: "%B %d, %Y" }}</span>
+                        </div>
+                    </li>
+                    {% endunless %}
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!-- About Section -->
+        <div class="sidebar-section">
+            <h4>About MartinNotes</h4>
+            <p style="font-size: 0.9rem; line-height: 1.5; color: #666;">
+                {{ site.description }} Follow along for insights on technology, business, and leadership.
+            </p>
+            <a href="{{ site.baseurl }}/about" style="font-size: 0.9rem; font-weight: 500;">Read more about Martin →</a>
+        </div>
+    </aside>
 </div>
+
+<!-- Pagination -->
+{% if paginator.total_pages > 1 %}
+<nav class="pagination-nav" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #e2e2e2;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+        {% if paginator.previous_page %}
+            <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" 
+               style="padding: 10px 20px; border: 1px solid #e2e2e2; text-decoration: none; color: #121212; font-weight: 500;">
+                ← Previous
+            </a>
+        {% endif %}
+        
+        <span style="color: #666; font-size: 0.9rem;">
+            Page {{ paginator.page }} of {{ paginator.total_pages }}
+        </span>
+        
+        {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" 
+               style="padding: 10px 20px; border: 1px solid #e2e2e2; text-decoration: none; color: #121212; font-weight: 500;">
+                Next →
+            </a>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}
 
