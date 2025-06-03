@@ -8,8 +8,12 @@ source "https://rubygems.org"
 #
 
 # Core dependencies
-gem 'jekyll'
+gem 'jekyll', '~> 4.3'
 gem 'logger'
+
+# Modern Sass support
+gem 'jekyll-sass-converter', '~> 3.0'
+gem 'sassc', '~> 2.4'
 
 # If you have any plugins, put them here!
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?

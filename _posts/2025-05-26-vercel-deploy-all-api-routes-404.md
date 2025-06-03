@@ -6,7 +6,7 @@ tags: [technology, development, vercel, nextjs, debugging, engineering]
 description: "How a single line of configuration brought down every API route in production - and what it taught me about platform abstractions"
 author: martin
 image: assets/images/vercel-404-debugging.png
-featured: true
+featured: false
 hidden: false
 comments: true
 ---

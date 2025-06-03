@@ -61,3 +61,10 @@ exclude:
 - README.md
 - Gemfile
 - Gemfile.lock
+
+sass:
+  style: compressed
+  sass_dir: _sass
+  load_paths:
+    - _sass
+  sourcemap: development

@@ -37,87 +37,36 @@
 <!-- Skip to content link for accessibility -->
 <a class="skip-link" href="#main-content">Skip to content</a>
 
-<!-- Top utility bar -->
-<div class="utility-bar">
+<!-- Minimized Single-Line Header -->
+<header class="minimal-header">
     <div class="container">
-        <div class="utility-nav">
-            <div class="utility-left">
-                <span class="date">{{ site.time | date: "%A, %B %d, %Y" }}</span>
-            </div>
-            <div class="utility-right">
-                <a href="#" class="utility-link">Subscribe</a>
-                <a href="#" class="utility-link">Log In</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Main Header -->
-<header class="main-header">
-    <div class="container">
-        <!-- Top navigation -->
-        <nav class="top-nav">
-            <button class="menu-toggle" aria-label="Toggle navigation">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
+        <nav class="compact-nav">
+            <!-- Site title -->
+            <h1 class="compact-title">
+                <a href="{{ site.baseurl }}/">{{ site.name }}</a>
+            </h1>
             
-            <div class="nav-sections">
-                <div class="nav-section">
-                    <a href="{{ site.baseurl }}/category/business" class="nav-link">Business</a>
-                    <div class="dropdown-menu">
-                        <a href="{{ site.baseurl }}/category/startup">Startup</a>
-                        <a href="{{ site.baseurl }}/category/management">Management</a>
-                    </div>
-                </div>
-                <div class="nav-section">
-                    <a href="{{ site.baseurl }}/category/technology" class="nav-link">Technology</a>
-                </div>
-                <div class="nav-section">
-                    <a href="{{ site.baseurl }}/category/opinion" class="nav-link">Opinion</a>
-                </div>
-                <div class="nav-section">
-                    <a href="{{ site.baseurl }}/category/life-event" class="nav-link">Life</a>
-                </div>
-                <div class="nav-section">
-                    <a href="{{ site.baseurl }}/category/defense" class="nav-link">Analysis</a>
-                </div>
-            </div>
-
-            <div class="header-actions">
-                <button class="search-btn" aria-label="Search">
+            <!-- Main navigation links -->
+            <div class="compact-links">
+                <a href="{{ site.baseurl }}/" class="compact-link {% if page.url == '/' %}active{% endif %}">Home</a>
+                <a href="{{ site.baseurl }}/about" class="compact-link">About</a>
+                <a href="{{ site.baseurl }}/categories" class="compact-link">All Categories</a>
+                <a href="https://github.com/mackuntu/" target="_blank" class="compact-link">GitHub</a>
+                
+                <!-- Search button -->
+                <button class="compact-search-btn" aria-label="Search">
                     <svg width="16" height="16" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                     </svg>
                 </button>
             </div>
-        </nav>
-
-        <!-- Site title/masthead -->
-        <div class="masthead">
-            <h1 class="site-title">
-                <a href="{{ site.baseurl }}/">{{ site.name }}</a>
-            </h1>
-            <p class="site-tagline">{{ site.description }}</p>
-        </div>
-
-        <!-- Main navigation -->
-        <nav class="main-nav">
-            <ul class="nav-list">
-                <li class="nav-item {% if page.url == '/' %}active{% endif %}">
-                    <a href="{{ site.baseurl }}/" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ site.baseurl }}/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ site.baseurl }}/categories" class="nav-link">All Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://github.com/mackuntu/" target="_blank" class="nav-link">GitHub</a>
-                </li>
-            </ul>
+            
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </nav>
     </div>
 </header>

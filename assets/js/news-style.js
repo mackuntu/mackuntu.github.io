@@ -2,6 +2,19 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Utility function: debounce
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
     // Mobile menu toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navSections = document.querySelector('.nav-sections');
@@ -388,7 +401,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     manageFocus();
     
-    // Shrinking header functionality
+    // Shrinking header functionality - DISABLED for minimalistic design
+    /*
     function initShrinkingHeader() {
         const header = document.querySelector('.main-header');
         if (!header) return;
@@ -489,9 +503,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
         }, 250), { passive: true });
     }
+    */
     
-    // Initialize shrinking header
-    initShrinkingHeader();
+    // Initialize shrinking header - DISABLED
+    // initShrinkingHeader();
     
     // Console message for developers
     console.log('MartinNotes - Professional News Theme Loaded');
