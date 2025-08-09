@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "When Vercel Breaks Your API Routes: A Debugging War Story"
+title: "How One Line in next.config.js Took Down Our Vercel APIs"
 categories: [technology]
-tags: [technology, development, vercel, nextjs, debugging, engineering]
-description: "How a single line of configuration brought down every API route in production - and what it taught me about platform abstractions"
+tags: [technology, development, vercel, nextjs, debugging, engineering, infrastructure]
+description: "A case study on how a benign-looking rewrite rule can create production-only 404s by interacting with Vercel's edge routing layer."
 author: martin
 image: assets/images/vercel-404-debugging.png
 featured: false
@@ -11,63 +11,40 @@ hidden: false
 comments: true
 ---
 
-## The 3 AM Wake-Up Call
+## The Problem: Production APIs Return 404, Local Works Fine
 
-Every engineer has that moment. The one where production is on fire, nothing makes sense, and you question every decision that led you here.
+We recently faced a production incident where a routine deployment caused all dynamic API routes to return a 404 Not Found error. Static API routes and all page routes worked correctly. The issue was not reproducible in our local development environment.
 
-Mine came when our entire API layer vanished into 404s after a routine deployment.
+This is a common, and often maddening, class of bug. Here’s a breakdown of the symptoms:
 
-The kicker? Everything worked perfectly locally. Classic.
+**Working Routes:**
+- `/` (All page routes) ✓
+- `/api/health` (Static API route) ✓
+- `/api/auth/[...nextauth]` (NextAuth.js dynamic routes) ✓
 
-## When Abstractions Betray You
-
-Here's what makes this story worth telling: it wasn't a bug in our code. It was a fundamental misunderstanding of how Vercel's routing layer works.
-
-And that misunderstanding was hidden behind what seemed like a harmless configuration.
-
-Let me paint the picture:
-
-**Working:**
-- `/api/health` ✓
-- `/api/auth/[...nextauth]` ✓  
-- Every single page route ✓
-
-**Dead:**
+**Failing Routes:**
 - `/api/users/[id]` ✗
 - `/api/posts/[slug]` ✗
-- Every other dynamic API route ✗
+- All other dynamic API routes ✗
 
-The Vercel Functions dashboard showed everything deployed. The build logs were clean. Yet every dynamic API route returned 404.
+The Vercel build logs showed all functions were created successfully, and the function logs showed no invocations for the failing routes. The requests were disappearing before they hit our Next.js application code.
 
-## The Hunt Begins
+## The Investigation: Ruling Out the Obvious
 
-I did what any engineer does - started eliminating variables.
+Our initial debugging focused on the application layer, which turned out to be the wrong place to look.
 
-**Middleware?** Properly excluding API routes.
+1.  **Middleware (`middleware.ts`)**: We confirmed our middleware was correctly configured to exclude `/api/` routes, so it wasn't interfering.
+2.  **Next.js Route Config**: We tried explicitly setting `export const dynamic = 'force-dynamic'` and other flags in the route handlers. This had no effect, as the issue occurred before the function was invoked.
+3.  **Vercel Build Output**: We inspected the `.vercel/output` directory and confirmed that function bundles for the dynamic routes were present and correctly mapped in `config.json`.
 
-**Route configuration?** Added every Next.js flag known to humanity:
-```javascript
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
-export const preferredRegion = 'auto';
-// Still dead
-```
+The breakthrough came when we questioned why `/api/auth/[...nextauth]` was the *only* dynamic route that worked.
 
-**Build output?** Functions were there, mocking me:
-```
-├ ƒ /api/users/[id]     0 B    0 B
-├ ƒ /api/posts/[slug]   0 B    0 B
-```
+## The Root Cause: A Misleading `rewrites` Rule
 
-Then I noticed something odd.
-
-## The Smoking Gun
-
-Why did NextAuth work when nothing else did?
-
-I found this in `next.config.js`:
+The investigation led us to a seemingly harmless block in our `next.config.js`:
 
 ```javascript
+// next.config.js
 async rewrites() {
   return [
     {
@@ -78,26 +55,24 @@ async rewrites() {
 }
 ```
 
-A rewrite that sends `/api/auth/*` to... itself?
+This rewrite appears to be an identity function—it rewrites a path to itself. It was likely added during initial NextAuth setup and forgotten.
 
-This looked like dead code. Probably added months ago when debugging NextAuth. Harmless, right?
+However, on Vercel's platform, this configuration has a critical side effect. **When `rewrites` are defined, Vercel's edge network uses them to inform its routing logic.** By explicitly defining a rewrite for `/api/auth/:path*`, we inadvertently told Vercel that *only* paths matching this pattern were valid API routes. All other dynamic API routes, which did not have a matching rewrite rule, were treated as non-existent by the edge, resulting in a 404 before ever reaching the Next.js runtime.
 
-Wrong.
+### Why It Worked Locally
 
-## The Brutal Truth
+The Next.js development server (`next dev`) does not replicate Vercel's edge routing layer. Locally, the `rewrites` function has a much more limited scope and doesn't influence the fundamental route resolution in the same way. This is a classic example of environment parity drift, where the local development environment is a poor approximation of the production platform.
 
-This innocent rewrite was acting as a route whitelist in Vercel's edge network.
+## The Fix: Aligning Configuration with Platform Behavior
 
-It was essentially telling Vercel: "Only `/api/auth/*` routes are real API routes. Everything else? Doesn't exist."
-
-The fix was insulting in its simplicity:
+The solution was to make the rewrite rule generic enough to encompass all API routes, not just the one for authentication.
 
 ```javascript
-// Delete the entire rewrites function
-// Or if you need rewrites:
+// next.config.js
 async rewrites() {
   return [
     {
+      // This now correctly tells Vercel's edge that ALL /api routes are valid.
       source: '/api/:path*',
       destination: '/api/:path*',
     }
@@ -105,52 +80,21 @@ async rewrites() {
 }
 ```
 
-Deployed. Fixed. Four hours of my life gone.
+Alternatively, if no other rewrites are needed, the entire `rewrites` function can be deleted. After deploying this change, all API routes immediately began resolving correctly.
 
-## The Deeper Lesson
+## Key Lessons on Platform Abstractions
 
-This bug taught me something important about modern deployment platforms.
+This incident provides several important takeaways for teams building on modern PaaS environments like Vercel.
 
-**Local development lies to you.**
+1.  **Configuration is Code (and Has Hidden Side Effects)**: A `next.config.js` file is not just for your application; it's also configuration for the platform. Seemingly "identity" operations can have profound impacts on the underlying infrastructure.
+2.  **Local Environments Are an Approximation, Not a Replica**: `next dev` is a development tool, not a production simulator. Critical infrastructure layers like edge networks, serverless function routing, and CDN behavior are often absent locally. Always validate platform-sensitive changes with preview deployments.
+3.  **Think in Layers**: When debugging, consider the entire request lifecycle. The bug wasn't in our code; it was in the interaction between our configuration and the platform's routing layer. The request was failing at "step 1" (Edge Routing), not "step 4" (Application Code).
 
-Your Next.js dev server doesn't have Vercel's edge network. It doesn't have their routing layer. It's a beautiful lie that everything works the same way.
+## Debugging Checklist for Vercel 404s
 
-When you deploy to Vercel, your request goes through:
-1. Edge network routing
-2. Middleware execution  
-3. Function routing
-4. Your actual code
+If you encounter production-only 404s on Vercel with Next.js, here is a checklist:
 
-That rewrite rule? It was intercepting at step 1, before your code even had a chance.
-
-## What This Means for Engineering Teams
-
-This isn't just a Vercel gotcha. It's a pattern I've seen repeatedly:
-
-1. **Platform abstractions hide complexity** - Until they don't
-2. **Identity operations aren't always identity** - A rewrite to itself can still break things
-3. **Production has layers your local environment doesn't** - And those layers have opinions
-
-The real lesson? When debugging platform issues, think like the platform.
-
-Don't just think about your code. Think about every layer between the user and your code.
-
-## Your 404 Debugging Checklist
-
-If you're here because your API routes are returning 404:
-
-1. **Check `next.config.js` first** - Especially rewrites and redirects
-2. **Look for "identity" operations** - Rewrites that seem to do nothing
-3. **Compare working vs broken routes** - What's different?
-4. **Think in layers** - Where in the stack could the request be dying?
-5. **When in doubt, simplify** - Remove configuration until it works
-
-## The Takeaway
-
-Every production bug is a lesson in humility.
-
-This one reminded me that no matter how well you understand your code, you're always at the mercy of the platform you deploy on.
-
-And sometimes, the most innocent-looking configuration is the one that burns you.
-
-Have you been bitten by platform abstractions? What's your worst "it works locally" story? 
+1.  **`next.config.js` is Your Primary Suspect**: Immediately audit `rewrites`, `redirects`, and `headers`. These directly influence the Vercel edge.
+2.  **Look for Overly-Specific Rules**: Are your rules too narrow? A rule for `/api/auth/:path*` can exclude `/api/users/:path*`.
+3.  **Compare Build Outputs**: Use Vercel's CLI to download the build output for a working and a failing deployment. Diff the `.vercel/output/config.json` file to find discrepancies in the generated routes and rewrites.
+4.  **Simplify to Isolate**: Create a new branch, remove all `rewrites` and other routing configurations, and deploy it. If it works, reintroduce rules one by one to find the offender. 
